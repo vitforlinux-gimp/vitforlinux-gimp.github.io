@@ -30,22 +30,15 @@ color : white;
 
 clear : both;
 }
-a {
-color : white;
-padding : 4px 8px 4px 8px;
-border : white solid 2px;
-background-color : #cc6633;
-text-decoration : none;
-font-weight : 600;
-text-shadow : 1px 1px 3px rgba(0, 0, 0, 1);
-}
+
 div.middle {
-width : 30%;
-float : left;
-border : white solid 2px;
-margin-left : 1%;
-margin-bottom : 20px;
-padding : 7px;
+  width: 30%;
+  float: left;
+  border: white solid 2px;
+  margin-left: 1%;
+  clear: right;
+  border-radius: 12px; /* angoli arrotondati */
+  background-color: #444; /* una leggera sfumatura di sfondo */
 }
 div.topbar {
 width : 100%;
@@ -87,16 +80,25 @@ color :  #333333;
 clear : both;
 }
 a {
-color : white;
-padding : 4px 8px 4px 8px;
-margin-left:5px;
-margin-right:5px;
-border : white solid 2px;
-background-color : #cc6633;
-text-decoration : none;
-font-weight : 600;
-text-shadow : 1px 1px 3px rgba(0, 0, 0, 1);
+  color: white;
+  padding: 4px 8px 4px 8px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 20px;
+  white-space: nowrap;
+  border: white solid 2px;
+  background-color: #cc6633;
+  text-decoration: none;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+  border-radius: 8px; /* arrotondati */
+  transition: background-color 0.3s ease; /* transizione morbida */
 }
+a:hover {
+  background-color: #e6804d; /* colore leggermente più chiaro al passaggio */
+}
+      a::after {  content: "\A";
+  }
 div.middle {
 width : 30%;
 float : left;
@@ -119,27 +121,31 @@ text-align: center;
   width: 100%;
   height: auto;
   clear: both;
+  border-radius: 12px;
 }
-      div.middle p img:hover
+            div.middle p img:hover
 {
     -webkit-transform: scale(2);
     -moz-transform: scale(2);
     -o-transform: scale(2);
     -ms-transform: scale(2);
     transform: scale(2);
+transition: width 2s, height 2s, background-color 2s, transform 2s;
+  border-radius: 12px;
 }
 div.topbar {
-width : 100%;
-height : 30px;
-position : fixed;
-border-bottom : 2px solid white;
-z-index : 1000;
-top : 0;
-text-align : right;
-left : 0;
-background-color : #333333;
-vertical-align : bottom;
-  
+  width: 100%;
+  height: 30px;
+  position: fixed;
+  border-bottom: 2px solid white;
+  z-index: 1000;
+  top: 0;
+  text-align: right;
+  left: 0;
+  background-color: #333333;
+  vertical-align: bottom;
+  border-radius: 0 0 12px 12px; /* arrotonda solo gli angoli in basso */
+  padding-right: 10px;
 }
 </style> </head>
   <body>

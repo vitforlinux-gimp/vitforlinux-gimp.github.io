@@ -32,12 +32,13 @@ clear : both;
 }
 
 div.middle {
-width : 30%;
-float : left;
-border : white solid 2px;
-margin-left : 1%;
-margin-bottom : 20px;
-padding : 7px;
+  width: 30%;
+  float: left;
+  border: white solid 2px;
+  margin-left: 1%;
+  clear: right;
+  border-radius: 12px; /* angoli arrotondati */
+  background-color: #444; /* una leggera sfumatura di sfondo */
 }
 div.topbar {
 width : 100%;
@@ -79,19 +80,22 @@ color :  #333333;
 clear : both;
 }
 a {
-color : white;
-padding : 4px 8px 4px 8px;
-margin-left:5px;
-margin-right:5px;
-margin-top: 20px;
+  color: white;
+  padding: 4px 8px 4px 8px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 20px;
   white-space: nowrap;
-border : white solid 2px;
-background-color : #cc6633;
-text-decoration : none;
-font-weight : 600;
-clear : both;
-text-shadow : 1px 1px 3px rgba(0, 0, 0, 1);
-
+  border: white solid 2px;
+  background-color: #cc6633;
+  text-decoration: none;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
+  border-radius: 8px; /* arrotondati */
+  transition: background-color 0.3s ease; /* transizione morbida */
+}
+a:hover {
+  background-color: #e6804d; /* colore leggermente più chiaro al passaggio */
 }
       a::after {  content: "\A";
   }
@@ -117,6 +121,7 @@ text-align: center;
   width: 100%;
   height: auto;
   clear: both;
+  border-radius: 12px;
 }
             div.middle p img:hover
 {
@@ -125,19 +130,22 @@ text-align: center;
     -o-transform: scale(2);
     -ms-transform: scale(2);
     transform: scale(2);
+transition: width 2s, height 2s, background-color 2s, transform 2s;
+  border-radius: 12px;
 }
 div.topbar {
-width : 100%;
-height : 30px;
-position : fixed;
-border-bottom : 2px solid white;
-z-index : 1000;
-top : 0;
-text-align : right;
-left : 0;
-background-color : #333333;
-vertical-align : bottom;
-  
+  width: 100%;
+  height: 30px;
+  position: fixed;
+  border-bottom: 2px solid white;
+  z-index: 1000;
+  top: 0;
+  text-align: right;
+  left: 0;
+  background-color: #333333;
+  vertical-align: bottom;
+  border-radius: 0 0 12px 12px; /* arrotonda solo gli angoli in basso */
+  padding-right: 10px;
 }
 </style> </head>
   <body>
@@ -145,33 +153,44 @@ vertical-align : bottom;
         title="italiano" target="_blank">it</a><a href="https://vitforlinux-gimp.github.io/"
         title="english" target="_blank">en</a><a href="https://github.com/vitforlinux-gimp/scm/archive/refs/heads/main.zip"
         title="All repo in Zip" target="_blank">All repo in Zip</a><a href="https://github.com/vitforlinux-gimp/font-downloader/releases/download/font/Script-fu-needed-font.zip"
-        title="Using these script-fus is best with these fonts" target="_blank">Needed Font</a><a href="https://github.com/vitforlinux-gimp/scm"
-        title="on Github" target="_blank">View on Github</a></div>
+        title="Using these script-fus is best with these fonts" target="_blank">Needed
+        Font</a><a href="https://github.com/vitforlinux-gimp/scm" title="on Github"
+        target="_blank">View on Github</a></div>
     <h1> Vitforlinux Updated SCM script-fus for Gimp 2.10 and 2.99.19 / 3.0 rc1</h1>
-    <h2>Script-fu SCM - Warning: these scripts work on Gimp 2.10 and on the "newest" version of Gimp 2.99.19 or 3.0rc1... please update.<br>
-The link to some GEGL plug-ins has been removed from Script-fu SCM, I will make a new working 300 series soon.
-</h2>
+    <h2>Script-fu SCM - Warning: these scripts work on Gimp 2.10 and on the
+      "newest" version of Gimp 2.99.19 or 3.0rc1... please update.<br>
+      The link to some GEGL plug-ins has been removed from Script-fu SCM, I will
+      make a new working 300 series soon. </h2>
     <div class="middle">
       <h3>Polished Plastic Fun for Gimp 2.10 - 3.0 rc1 </h3>
       <p> It has amazing possibilities of both text and background filling,
         outline and shadow color can be changed.<br>
-        <br> Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTBlimpo.otf" title="QTBlimpo" target="_blank">QTBlimpo</a><br><br>
+        <br>
+        Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTBlimpo.otf"
+          title="QTBlimpo" target="_blank">QTBlimpo</a><br>
+        <br>
         File &gt; Create &gt; Logos &gt; Polished Plastic Fun 300 Logo<br>
-        Filters &gt; Alpha to Logo &gt; Polished Plastic Fun 300 alpha
-        <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/Plastic_Fun.jpg"><br>
-              <br>version 300 with support 3.0 rc1<br><br>
-              <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/master/polished_plastic_fun_300.scm"
-          title="polished plastic fun 300" target="_blank" download=""> Right click,
-          save link as... </a></p>
+        Filters &gt; Alpha to Logo &gt; Polished Plastic Fun 300 alpha <img loading="lazy"
+          src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/Plastic_Fun.jpg"><br>
+        <br>
+        version 300 with support 3.0 rc1<br>
+        <br>
+        <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/master/polished_plastic_fun_300.scm"
+          title="polished plastic fun 300" target="_blank" download=""> Right
+          click, save link as... </a></p>
     </div>
     <div class="middle">
       <h3> Plastic or Glass for Gimp 2.10 - 3.0rc1 </h3>
       <p> Allows you to make effects like plastic and glass, transparence, added
         a new effect Pattern Lighten Only or Overlay. Is possible Shrink / Grow
         and Outline text<br>
-        <br> Use font OFL <a href="https://ctan.mirror.garr.it/mirrors/ctan/fonts/qualitype/opentype/QTVagaRound-Bold.otf" title="QTVagaRound-Bold" target="_blank">QTVagaRound-Bold</a><br><br>
+        <br>
+        Use font OFL <a href="https://ctan.mirror.garr.it/mirrors/ctan/fonts/qualitype/opentype/QTVagaRound-Bold.otf"
+          title="QTVagaRound-Bold" target="_blank">QTVagaRound-Bold</a><br>
+        <br>
         Script-Fu&gt; Logos&gt; Plastic or Glass Text 300<br>
-        Script-Fu&gt; Alpha-to-Logo&gt; Plastic or Glass alpha 300 <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/plastic_glass.jpg"><br>
+        Script-Fu&gt; Alpha-to-Logo&gt; Plastic or Glass alpha 300 <img loading="lazy"
+          src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/plastic_glass.jpg"><br>
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/Plastic-Or-Glass-300.scm"
           title="plastic or glass" target="_blank" download=""> Right click,
           save link as... </a></p>
@@ -182,7 +201,8 @@ The link to some GEGL plug-ins has been removed from Script-fu SCM, I will make 
         more fill effect are possible.<br>
         <br>
         Script-Fu&gt; Alpha-to-Logo&gt; Lord of The Rings 300... Alpha<br>
-        Script-Fu&gt; Logos&gt; Lord of The Rings 300... Text <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/Lord_of_The_Rings.jpg"><br>
+        Script-Fu&gt; Logos&gt; Lord of The Rings 300... Text <img loading="lazy"
+          src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/Lord_of_The_Rings.jpg"><br>
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/300_Lord_of_the_Rings_Script.scm"
           title="lord of the rings " target="_blank" download=""> Right click,
           save link as... </a></p>
@@ -202,9 +222,13 @@ The link to some GEGL plug-ins has been removed from Script-fu SCM, I will make 
     <div class="middle">
       <h3> Skywriting for Gimp 2.10 and 3.0 rc1</h3>
       <p>Your dream is write with the clouds? This script can do it!<br>
-                <br> Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTHelvet-Black.otf" title="QTHelvet Black" target="_blank">QTHelvet Black</a><br><br>
+        <br>
+        Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTHelvet-Black.otf"
+          title="QTHelvet Black" target="_blank">QTHelvet Black</a><br>
+        <br>
         File&gt; Create&gt; Logos&gt; Skywriting 300 Logo<br>
-        Script-Fu&gt; AlphaToLogo&gt; Skywriting 300 Alpha <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/skywriting.jpg"
+        Script-Fu&gt; AlphaToLogo&gt; Skywriting 300 Alpha <img loading="lazy"
+          src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/skywriting.jpg"
           alt="skywriting"><br>
         <a href="https://github.com/vitforlinux-gimp/scm/raw/main/300_skywriting.scm"
           title="skywriting" target="_blank" download=""> Right click, save link
@@ -214,7 +238,11 @@ The link to some GEGL plug-ins has been removed from Script-fu SCM, I will make 
       <h3> 3D wood for Gimp 2.10 - 3.0rc2 </h3>
       <p>&nbsp; 3d wood make wood bumped text with wood like&nbsp; bump map.Is
         possible Shrink / Grow and Outline text <br>
-        <br><br> Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTHelvet-Black.otf" title="QTHelvet-Black" target="_blank">QTHelvet-Black</a><br><br>
+        <br>
+        <br>
+        Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTHelvet-Black.otf"
+          title="QTHelvet-Black" target="_blank">QTHelvet-Black</a><br>
+        <br>
         Script-Fu&gt; Logos &gt; 3d wood 300<img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/3dwood.jpg"
           alt="3d wood"><br>
         <a href="https://github.com/vitforlinux-gimp/scm/raw/main/3D_WOOD_300.scm"
@@ -224,9 +252,12 @@ The link to some GEGL plug-ins has been removed from Script-fu SCM, I will make 
     <hr>
     <div class="middle">
       <h3> Reflex Logo for Gimp 2.10 - 3.0 rc1</h3>
-      <p>A classic script updated for Gimp 2.10 - 3.0 rc1, text fill has the option to be
-        filled with different gradients.<br>
-          <br> Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTBodiniPoster-Italic.otf" title="QTBodiniPoster Italic" target="_blank">QTBodiniPoster Italic</a><br><br>
+      <p>A classic script updated for Gimp 2.10 - 3.0 rc1, text fill has the
+        option to be filled with different gradients.<br>
+        <br>
+        Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTBodiniPoster-Italic.otf"
+          title="QTBodiniPoster Italic" target="_blank">QTBodiniPoster Italic</a><br>
+        <br>
         File&gt; Create&gt; Logos&gt; Reflex Logo<br>
         Filtri&gt; Alpha to Logo &gt; Reflex<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/reflex.jpg"><br>
@@ -237,15 +268,21 @@ The link to some GEGL plug-ins has been removed from Script-fu SCM, I will make 
     <div class="middle">
       <h3>Logo Workshop for Gimp 2.10 - 2.99.19</h3>
       <p>This script allows you to create embossed text and adjust the thickness
-        of the outline, the experimental PLUS D version has complete management of gradients in 12 directions on the three levels, the shined effect on the text and vignettes on the background.<br>
+        of the outline, the experimental PLUS D version has complete management
+        of gradients in 12 directions on the three levels, the shined effect on
+        the text and vignettes on the background.<br>
         <br>
         File&gt; Create&gt; Logos&gt; Logo Workshop 299<br>
-        Filtri&gt; AlphaToLogo&gt; Logo Workshop 299 Alpha <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/logo_workshop.jpg"
+        Filtri&gt; AlphaToLogo&gt; Logo Workshop 299 Alpha <img loading="lazy"
+          src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/logo_workshop.jpg"
           alt=" Logo Workshop"><br>
         <a href="https://github.com/vitforlinux-gimp/scm/raw/main/logo-workshop29916.scm"
           title="Logo Workshop" target="_blank" download="">Right click, save
-          link as...</a><br><br>Experimental Version Plus 299 D<br><br>
-                <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/logo-workshop-plus-29919-D.scm"
+          link as...</a><br>
+        <br>
+        Experimental Version Plus 299 D<br>
+        <br>
+        <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/logo-workshop-plus-29919-D.scm"
           title="Logo Workshop" target="_blank" download="">Right click, save
           link as...</a><br>
       </p>
@@ -270,9 +307,8 @@ The link to some GEGL plug-ins has been removed from Script-fu SCM, I will make 
         Script-Fu&gt; Logos&gt; Emap 300 Logo<br>
         Script-Fu&gt; Alpha to Logo &gt; Emap 300 Alpha<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/emap.jpg"><br>
-        <a href="https://github.com/vitforlinux-gimp/scm/raw/main/Emap300.scm"
-          title="Emap Logo" target="_blank" download="">Right click, save link
-          as...</a></p>
+        <a href="https://github.com/vitforlinux-gimp/scm/raw/main/Emap300.scm" title="Emap Logo"
+          target="_blank" download="">Right click, save link as...</a></p>
     </div>
     <div class="middle">
       <h3>Psychedelic for Gimp 2.99.19 and 2.10</h3>
@@ -291,7 +327,10 @@ The link to some GEGL plug-ins has been removed from Script-fu SCM, I will make 
       <h3>Irregular Slab for Gimp 2.10 - 3.0rc2</h3>
       <p>Simulates the effect of a piece of broken wood, has many adjustments to
         make the effect more: realistic, backgrounds and colors can be changed<br>
-        <br> Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTCaligulatype.otf" title="QTCaligulatype" target="_blank">QTCaligulatype</a><br><br>
+        <br>
+        Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTCaligulatype.otf"
+          title="QTCaligulatype" target="_blank">QTCaligulatype</a><br>
+        <br>
         Script-Fu&gt; Logos &gt; Irregular Slab 300 Logo<br>
         Filtri&gt; Stencil Ops&gt; Irregular Slab 300 Alpha<img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/irregular_slab.jpg"
           alt="Irregular Slab"> <a href="https://github.com/vitforlinux-gimp/scm/raw/main/300_irregular_slab.scm"
@@ -306,7 +345,8 @@ The link to some GEGL plug-ins has been removed from Script-fu SCM, I will make 
         out, it has color overlay pattern effects...don't give up!<br>
         <br>
         Script-Fu&gt; Logos&gt; Double Bumped Text<br>
-        Script-Fu&gt; Alpha to Logo &gt;&nbsp; Double Bump Map <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/double_bump.jpg"><br>
+        Script-Fu&gt; Alpha to Logo &gt;&nbsp; Double Bump Map <img loading="lazy"
+          src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/double_bump.jpg"><br>
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/Double_bump_map.scm"
           title="Double Bumped Text" target="_blank" download="">Right click,
           save link as...</a></p>
@@ -324,12 +364,13 @@ The link to some GEGL plug-ins has been removed from Script-fu SCM, I will make 
     </div>
     <div class="middle">
       <h3>Wire Art for Gimp 2.10 - 2.99.19</h3>
-      <p>A script classic updated for Gimp 2.10 - 2.99.19, but renewed and independent,
-        the mesh is generated by the mosaic filter, and the type and size can be
-        changed.<br>
+      <p>A script classic updated for Gimp 2.10 - 2.99.19, but renewed and
+        independent, the mesh is generated by the mosaic filter, and the type
+        and size can be changed.<br>
         <br>
         Script-Fu&gt; Logos&gt; Wire Art Text 299<br>
-        Script-Fu&gt; Alpha-to-Logo&gt;&nbsp; Wire Art Image<img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/wire_art.jpg"
+        Script-Fu&gt; Alpha-to-Logo&gt;&nbsp; Wire Art Image<img loading="lazy"
+          src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/wire_art.jpg"
           alt="Wire Art"> <a href="https://github.com/vitforlinux-gimp/scm/raw/main/Wire-Art-Text-299.scm"
           title="Wire Art" target="_blank" download="">Right click, save link
           as...</a></p>
@@ -349,7 +390,8 @@ The link to some GEGL plug-ins has been removed from Script-fu SCM, I will make 
     <div class="middle">
       <h3>Where do I install Script-FU?</h3>
       <p>On Linux in ~/.config/GIMP/2.10(or 3.0)/script<br>
-        On Windows in C:\Users\user_name\AppData\Roaming\GIMP\2.10(or 3.0)\scripts\.<br>
+        On Windows in C:\Users\user_name\AppData\Roaming\GIMP\2.10(or
+        3.0)\scripts\.<br>
         <br>
         But you can also keep them in a different folder and configure it in
         Edit&gt;Preferences&gt;Folders&gt;Scripts</p>
@@ -362,23 +404,22 @@ The link to some GEGL plug-ins has been removed from Script-fu SCM, I will make 
         Key combinations can be changed to<br>
         Edit&gt;Preferences&gt;Interface&gt;Configure Interface Buttons</p>
     </div>
- <hr>
+    <hr>
     <div class="middle">
       <h3>Safari Logo and Alpha for Gimp 2.10 - 3.0 rc1</h3>
       <p>It is an updated version of Safari 2.4, it makes a nice series of
-Colorful animal effects with gradient map<br>
+        Colorful animal effects with gradient map<br>
         <br>
         Script-Fu&gt; Logos &gt; Safari 300 LOGO<br>
         Script-Fu&gt; Alpha-to-Logo&gt; Safari 300 ALPHA<img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/safari.jpg">
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/300_safari.scm"
           title="Logo SAFARI" target="_blank" download="">Right click, save link
-          as...</a>
-      </p>
+          as...</a> </p>
     </div>
     <div class="middle">
       <h3>Furry Logo for Gimp 2.10 - 3.0 rc1</h3>
-      <p>A furry logo can always be useful, you can use two colors, they are there
-many adjustments<br>
+      <p>A furry logo can always be useful, you can use two colors, they are
+        there many adjustments<br>
         <br>
         Script-Fu&gt; Logos&gt;Furry 300 LOGO<br>
         Script-Fu&gt; Alpha-to-Logo&gt; Furry 300 ALPHA <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/furry-logo.jpg"
@@ -389,8 +430,8 @@ many adjustments<br>
     </div>
     <div class="middle">
       <h3>Polka Dot Logo for Gimp 2.10</h3>
-      <p>A flashy logo with tiny dots, the colors can be chosen...
-it doesn't use python.<br>
+      <p>A flashy logo with tiny dots, the colors can be chosen... it doesn't
+        use python.<br>
         <br>
         Script-Fu&gt; Logos&gt;Polka Dot Logo<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/polka-dot-logo.jpg"
@@ -400,44 +441,47 @@ it doesn't use python.<br>
           as...</a></p>
     </div>
     <hr>
-            <div class="middle">
+    <div class="middle">
       <h3>Imigre Logo for Gimp 2.10 - 3.0rc1</h3>
-      <p>Un logo ondulato e bicolore, portato alla nuova versione di Gimp
-          <br><br> Usa il font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTSchoolCentury-Bold.otf" title="QTFraktur" target="_blank">QTSchoolCentury Bold</a><br><br>
+      <p>Un logo ondulato e bicolore, portato alla nuova versione di Gimp <br>
+        <br>
+        Usa il font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTSchoolCentury-Bold.otf"
+          title="QTFraktur" target="_blank">QTSchoolCentury Bold</a><br>
+        <br>
         File&gt; Create&gt; Logos&gt; Imigre 300<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/imigre-logo.jpg"
           alt="IMIGRE LOGO"><br>
         <a href="https://github.com/vitforlinux-gimp/scm/raw/main/imigre-300.scm"
           title="IMIGRE LOGO" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          as...</a> </p>
     </div>
-            <div class="middle">
+    <div class="middle">
       <h3>Stained Glass Logo for Gimp 2.10 - 2.99.19</h3>
       <p>A traditional stained glass logo, with different options and colors<br>
         <br>
         File&gt; Create&gt; Logos&gt; Stained Glass Logo<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/stained-glass.jpg"
-          alt="Stained Glass LOGO">
-        <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/stained-glass-logo-299_16.scm"
-          title="Stained Glass LOGO" target="_blank" download="">Right click, save link
-          as...</a>
- </p></div>
-                 <div class="middle">
+          alt="Stained Glass LOGO"> <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/stained-glass-logo-299_16.scm"
+          title="Stained Glass LOGO" target="_blank" download="">Right click,
+          save link as...</a> </p>
+    </div>
+    <div class="middle">
       <h3>Dracula! for Gimp 2.10 - 3.0rc1</h3>
       <p>A scary logo for Halloween, colors can be changed<br>
-      <br> Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTFraktur.otf" title="QTFraktur" target="_blank">QTFraktur</a><br><br>
+        <br>
+        Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTFraktur.otf"
+          title="QTFraktur" target="_blank">QTFraktur</a><br>
+        <br>
         File&gt; Create&gt; Logos&gt; Dracula 300<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/dracula-logo.jpg"
           alt="Dracula! LOGO"><br>
         <a href="https://github.com/vitforlinux-gimp/scm/raw/main/dracula300.scm"
-          title="Dracula! LOGO" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          title="Dracula! LOGO" target="_blank" download="">Right click, save
+          link as...</a> </p>
     </div>
     <hr>
-       <hr>
-                     <div class="middle">
+    <hr>
+    <div class="middle">
       <h3>Sweet Candy Logo for Gimp 2.10 - 2.99.19</h3>
       <p>A logo that recreates the effect of Christmas sweets<br>
         <br>
@@ -445,11 +489,10 @@ it doesn't use python.<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/sweet-candy.jpg"
           alt="Sweet Candy LOGO"><br>
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/sweet_candy_text_gimp_299-mod.scm"
-          title="Sweet Candy LOGO" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          title="Sweet Candy LOGO" target="_blank" download="">Right click, save
+          link as...</a> </p>
     </div>
-                     <div class="middle">
+    <div class="middle">
       <h3>Snow cover for for Gimp 2.10 - 3.0 rc1</h3>
       <p>A logo, or alpha, covered in snow<br>
         <br>
@@ -458,64 +501,73 @@ it doesn't use python.<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/snow-cover.jpg"
           alt="Snow Cover Logo 300"><br>
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/Snow_Cover300.scm"
-          title="Snow Cover Logo 300" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          title="Snow Cover Logo 300" target="_blank" download="">Right click,
+          save link as...</a> </p>
     </div>
-                     <div class="middle">
+    <div class="middle">
       <h3>Wrought Iron for Gimp 2.10 - 3.0rc1</h3>
-      <p>A burnished metal effect logo, with optional frame, colors can be changed<br>
-        <br> Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTAbbie.otf" title="QTAbbie" target="_blank">QTAbbie</a><br><br>
+      <p>A burnished metal effect logo, with optional frame, colors can be
+        changed<br>
+        <br>
+        Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTAbbie.otf"
+          title="QTAbbie" target="_blank">QTAbbie</a><br>
+        <br>
         Script-Fu&gt; Logos&gt; Wrought Iron Logo<br>
         Script-Fu&gt; Alpha-to-Logo&gt; Wrought Iron<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/wrought-iron.jpg"
           alt="Wrought Iron Logo"><br>
         <a href="https://github.com/vitforlinux-gimp/scm/raw/main/Wrought-Iron-300.scm"
-          title="Wrought Iron Logo" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          title="Wrought Iron Logo" target="_blank" download="">Right click,
+          save link as...</a> </p>
     </div>
-          <hr>
-                     <div class="middle">
+    <hr>
+    <div class="middle">
       <h3>Glossy Galaxy for Gimp 2.10 - 3.0 rc1</h3>
       <p>An old classic updated for Gimp 3.0 rc1 - 2.10<br>
-        <br> Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTEraType.otf" title="QTEraType" target="_blank">QTEraType</a><br><br>
+        <br>
+        Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTEraType.otf"
+          title="QTEraType" target="_blank">QTEraType</a><br>
+        <br>
         File&gt; Create&gt; Logos&gt; Glossy 300 Logo <br>
         Filters&gt; Alpha to Logo&gt; Glossy 300 Alpha<br>
-        <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/Glossy galaxy 300 logo scm script-fu Gimp 3.0 2.10.jpg"
+        <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/Glossy%20galaxy%20300%20logo%20scm%20script-fu%20Gimp%203.0%202.10.jpg"
           alt="Glossy Galaxy 300 LOGO"><br>
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/glossy-300.scm"
-          title="Glossy Galaxy 300 LOGO" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          title="Glossy Galaxy 300 LOGO" target="_blank" download="">Right
+          click, save link as...</a> </p>
     </div>
-                     <div class="middle">
+    <div class="middle">
       <h3>Glossy Metal 3D for Gimp 2.10 - 3.0 rc1</h3>
       <p>Script-fu created by Samj from a tutorial by Monsoonami<br>
-    <br> Use font <a href="https://raw.githubusercontent.com/VCF5/2018-2019-Top-Network-System-Fonts/refs/heads/master/Walkway/Walkway%20Bold.ttf" title="Walkway Bold" target="_blank">Walkway Bold</a><br><br>
+        <br>
+        Use font <a href="https://raw.githubusercontent.com/VCF5/2018-2019-Top-Network-System-Fonts/refs/heads/master/Walkway/Walkway%20Bold.ttf"
+          title="Walkway Bold" target="_blank">Walkway Bold</a><br>
+        <br>
         File&gt; Create&gt; Logos&gt; Glossy Metal 3D by Monsonami 300<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/Glossy-metal-3d-Gimp-2.99.19-2.10.jpg"
           alt="Glossy Metal 3D 300"><br>
         <a href="https://github.com/vitforlinux-gimp/scm/raw/main/Glossy_Metal_3D_Text_By_Monsoonami_Gimp_300.scm"
-          title="Glossy Metal 3D 300" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          title="Glossy Metal 3D 300" target="_blank" download="">Right click,
+          save link as...</a> </p>
     </div>
-                     <div class="middle">
+    <div class="middle">
       <h3>yaChrome for Gimp 2.10 - 3.0rc2</h3>
-      <p>The newest and most complicated release of yaChrome, an enhanced version of Shiny Chrome<br>
-                <br> Use font OFL <a href="https://ctan.mirror.garr.it/mirrors/ctan/fonts/qualitype/opentype/QTBasker-Bold.otf" title="QTBasker-Bold" target="_blank">QTBasker-Bold</a><br><br>
+      <p>The newest and most complicated release of yaChrome, an enhanced
+        version of Shiny Chrome<br>
+        <br>
+        Use font OFL <a href="https://ctan.mirror.garr.it/mirrors/ctan/fonts/qualitype/opentype/QTBasker-Bold.otf"
+          title="QTBasker-Bold" target="_blank">QTBasker-Bold</a><br>
+        <br>
         Script-Fu&gt; Logos&gt; yaChrome Logo 300<br>
         Script-Fu&gt; Alpha-to-Logo&gt; yaChrome 300 alpha<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/yachrome-script-fu-scm-Gimp-2.10-3.0.jpg"
           alt="yaChrome logo"><br>
         <a href="https://github.com/vitforlinux-gimp/scm/raw/main/yaChrome-300.scm"
-          title="yaChrome logo" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          title="yaChrome logo" target="_blank" download="">Right click, save
+          link as...</a> </p>
     </div>
-        <hr>
-                     <div class="middle">
+    <hr>
+    <div class="middle">
       <h3>Egg melt for Gimp 2.10 - 2.99.19</h3>
       <p>The famous fried egg for Gimp 2.99.19 - 2.10<br>
         <br>
@@ -523,11 +575,10 @@ it doesn't use python.<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/egg-melt-logo-gimp-2.10-2.99.19.jpg"
           alt="Egg Melt LOGO"><br>
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/egg-melt.scm"
-          title="Egg Melt LOGO" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          title="Egg Melt LOGO" target="_blank" download="">Right click, save
+          link as...</a> </p>
     </div>
-                     <div class="middle">
+    <div class="middle">
       <h3>Exploding Happy New Year 2025 for Gimp 2.10 - 2.99.19</h3>
       <p>A modified version of Exploding to celebrate<br>
         <br>
@@ -535,36 +586,38 @@ it doesn't use python.<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/exploding-happy-new-year-Gimp-2.10-2.99.19.jpg"
           alt="Exploding 299 Happy New Year 2025"><br>
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/exploding-299-happy-new-year-2025.scm"
-          title="Exploding 299 Happy New Year 2025" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          title="Exploding 299 Happy New Year 2025" target="_blank" download="">Right
+          click, save link as...</a> </p>
     </div>
-                     <div class="middle">
+    <div class="middle">
       <h3>Pijama Logo for Gimp 2.10 - 2.99.19</h3>
-      <p>The newest and most complicated version of Pijama logo with more color choices<br>
+      <p>The newest and most complicated version of Pijama logo with more color
+        choices<br>
         <br>
         Script-Fu&gt; Logos&gt; Pijama logo<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/pijama-logo-gimp-2.10-2.99.19.jpg"
           alt="Pijama logo"><br>
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/pijama-logo.scm"
           title="Pijama logo" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          as...</a> </p>
     </div>
     <hr>
-                     <div class="middle">
+    <div class="middle">
       <h3>HighLighted Logo for Gimp 2.10 - 3.0 rc2</h3>
-      <p>A simple style with the same light reflections as Emap for Gimp 3.0 rc1 - 2.10<br>
-        <br> Use font OFL <a href="https://ctan.mirror.garr.it/mirrors/ctan/fonts/qualitype/opentype/QTVagaRound-Bold.otf" title="QTVagaRound-Bold" target="_blank">QTVagaRound-Bold</a><br><br>
+      <p>A simple style with the same light reflections as Emap for Gimp 3.0 rc1
+        - 2.10<br>
+        <br>
+        Use font OFL <a href="https://ctan.mirror.garr.it/mirrors/ctan/fonts/qualitype/opentype/QTVagaRound-Bold.otf"
+          title="QTVagaRound-Bold" target="_blank">QTVagaRound-Bold</a><br>
+        <br>
         File&gt; Create&gt; Text&gt; HighLighted LOGO 300<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/highlighted-logo-gimp-2.10-2.99.19.jpg"
           alt="HighLighted LOGO 300"><br>
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/highlighted-logo-300.scm"
-          title="HighLighted LOGO 300" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          title="HighLighted LOGO 300" target="_blank" download="">Right click,
+          save link as...</a> </p>
     </div>
-                     <div class="middle">
+    <div class="middle">
       <h3>Ocean Text for Gimp 2.10 - 3.0 rc2</h3>
       <p>The return of an old classic: text with waves made with a gradient<br>
         <br>
@@ -573,10 +626,9 @@ it doesn't use python.<br>
           alt="Ocean Text"><br>
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/ocean-text300.scm"
           title="Ocean Text" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          as...</a> </p>
     </div>
-                     <div class="middle">
+    <div class="middle">
       <h3>MH 3d Bevel Logo for Gimp 2.10 - 3.0 rc2</h3>
       <p>A cheerful 3D script with gradient color options<br>
         <br>
@@ -585,9 +637,9 @@ it doesn't use python.<br>
         <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/MH-3d-Bevel-logo-gimp-2.99.19-2.10.jpg"
           alt="MH 3d Bevel Logo"><br>
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/300_mhbevel3d.scm"
-          title="MH 3d Bevel Logo" target="_blank" download="">Right click, save link
-          as...</a>
- </p>
+          title="MH 3d Bevel Logo" target="_blank" download="">Right click, save
+          link as...</a> </p>
     </div>
+    
   </body>
 </html>
