@@ -5,148 +5,97 @@
     <title>Vitforlinux Gimp 3.0 rc1 and 2.10 updated script-fu scm</title>
     <style>
 body {
-background-color : #333333;
-color : white;
-font-family : Arial, Tahoma;
-font-size : 1em;
+  background-color: #333333;
+  color: white;
+  font-family: Arial, Tahoma, sans-serif;
+  font-size: 1em;
 }
-.responsive {
-  width: 100%;
-  height: auto;
-}
+
 h1 {
-color : #ff6600;
-margin-left : 20px;
-padding-top : 25px;
+  color: #ff6600;
+  margin-left: 20px;
+  padding-top: 25px;
 }
+
 h2 {
-color : white;
-margin-left : 20px;
-margin-top : 20px;
-clear : both;
-}
-      h3 {
-color : white;
-
-clear : both;
+  color: white;
+  margin-left: 20px;
+  margin-top: 20px;
+  clear: both;
 }
 
-div.middle {
-  width: 29%;
-  float: left;
-  border: white solid 2px;
-  margin-left: 7px;
-  clear: right;
-  border-radius: 12px; /* angoli arrotondati */
-  background-color: #444; /* una leggera sfumatura di sfondo */
+h3 {
+  color: white;
+  text-align: center;
+  clear: both;
 }
-div.topbar {
-width : 100%;
-height : 30px;
-position : fixed;
-border-bottom : 2px solid white;
-z-index : 1000;
-top : 0;
-text-align : right;
-left : 0;
-background-color : #333333;
-vertical-align : bottom;
-}
-      body {
-background-color : #333333;
-color : white;
-font-family : Arial, Tahoma;
-font-size : 1em;
-}
-h1 {
-color : #ff6600;
-margin-left : 20px;
-padding-top : 25px;
-}
-h2 {
-color : white;
-margin-left : 20px;
-margin-top : 20px;
-clear : both;
-}
-      h3 {
-color : white;
-text-align: center;
-clear : both;
-}
-      hr {
-color :  #333333;
 
-clear : both;
-}
 a {
   color: white;
-  padding: 4px 8px 4px 8px;
-  margin-left: 5px;
-  margin-right: 5px;
-  margin-top: 20px;
-  white-space: nowrap;
-  border: white solid 2px;
+  padding: 4px 8px;
+  margin: 20px 5px 0 5px;
+  border: 2px solid white;
   background-color: #cc6633;
   text-decoration: none;
   font-weight: 600;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
-  border-radius: 8px; /* arrotondati */
-  transition: background-color 0.3s ease; /* transizione morbida */
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
 }
+
 a:hover {
-  background-color: #e6804d; /* colore leggermente più chiaro al passaggio */
+  background-color: #e6804d;
 }
-      a::after {  content: "\A";
-  }
-div.middle {
-width : 30%;
-float : left;
-border : white solid 2px;
-margin-left : 1%;
-margin-bottom : 20px;
-padding : 7px;
-  clear: right;
-}
-      div.middle p {
 
-text-align: center;
-padding : 7px;
-  clear: right;
-        
+.container {
+  display: grid;
+  grid-auto-flow: row dense;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-self: stretch;
 }
-            div.middle p img {
 
-text-align: center;
+.container div {
+  border: 2px solid white;
+  border-radius: 20px;
+  background-color: #444;
+}
+
+.container div p {
+  text-align: center;
+  padding: 12px;
+}
+
+div.middle p img {
   width: 100%;
   height: auto;
-  clear: both;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  transition: transform 2s, background-color 2s;
+}
+
+div.middle p img:hover {
+  transform: scale(2);
   border-radius: 12px;
 }
-            div.middle p img:hover
-{
-    -webkit-transform: scale(2);
-    -moz-transform: scale(2);
-    -o-transform: scale(2);
-    -ms-transform: scale(2);
-    transform: scale(2);
-transition: width 2s, height 2s, background-color 2s, transform 2s;
-  border-radius: 12px;
-}
+
 div.topbar {
   width: 100%;
   height: 30px;
   position: fixed;
-  border-bottom: 2px solid white;
-  z-index: 1000;
   top: 0;
-  text-align: right;
   left: 0;
+  z-index: 1000;
+  text-align: right;
   background-color: #333333;
+  border-bottom: 2px solid white;
   vertical-align: bottom;
-  border-radius: 0 0 12px 12px; /* arrotonda solo gli angoli in basso */
+  border-radius: 0 0 12px 12px;
   padding-right: 10px;
 }
+
 </style> </head>
   <body>
     <div class="topbar"><a href="https://vitforlinux-gimp.github.io/index_it.html"
@@ -161,6 +110,7 @@ div.topbar {
       "newest" version of Gimp 2.99.19 or 3.0rc1... please update.<br>
       The link to some GEGL plug-ins has been removed from Script-fu SCM, I will
       make a new working 300 series soon. </h2>
+   <div class="container">
     <div class="middle">
       <h3>Polished Plastic Fun for Gimp 2.10 - 3.0 rc1 </h3>
       <p> It has amazing possibilities of both text and background filling,
@@ -207,7 +157,7 @@ div.topbar {
           title="lord of the rings " target="_blank" download=""> Right click,
           save link as... </a></p>
     </div>
-    <hr>
+
     <div class="middle">
       <h3> Scanner Logo for Gimp 2.10 and 2.99.19</h3>
       <p>Classic script updated for Gimp 2.10 more fill effect possible, line
@@ -249,7 +199,7 @@ div.topbar {
           title="3dwood" target="_blank" download=""> Right click, save link
           as... </a></p>
     </div>
-    <hr>
+
     <div class="middle">
       <h3> Reflex Logo for Gimp 2.10 - 3.0 rc1</h3>
       <p>A classic script updated for Gimp 2.10 - 3.0 rc1, text fill has the
@@ -298,7 +248,7 @@ div.topbar {
           title="Logo ToolBox" target="_blank" download="">Right click, save
           link as...</a></p>
     </div>
-    <hr>
+
     <div class="middle">
       <h3>Emap Logo for Gimp 2.10 - 3.0rc1</h3>
       <p>It is based on gradients and clouds, the result is absolutely random
@@ -337,7 +287,7 @@ div.topbar {
           title="Irregular Slab" target="_blank" download="">Right click, save
           link as...</a></p>
     </div>
-    <hr>
+
     <div class="middle">
       <h3>Double Bumped Text for Gimp 2.10.36 - 2.99.19</h3>
       <p>It complements and replaces Double Bump Map by adding text
@@ -375,7 +325,7 @@ div.topbar {
           title="Wire Art" target="_blank" download="">Right click, save link
           as...</a></p>
     </div>
-    <hr>
+
     <div class="middle">
       <h3>Does the Script-Fu panel go off the screen?</h3>
       <p>On Linux press the ALT key and clicking with the mouse you can move the
@@ -404,7 +354,7 @@ div.topbar {
         Key combinations can be changed to<br>
         Edit&gt;Preferences&gt;Interface&gt;Configure Interface Buttons</p>
     </div>
-    <hr>
+
     <div class="middle">
       <h3>Safari Logo and Alpha for Gimp 2.10 - 3.0 rc1</h3>
       <p>It is an updated version of Safari 2.4, it makes a nice series of
@@ -440,7 +390,7 @@ div.topbar {
           title="Furry LOGO" target="_blank" download="">Right click, save link
           as...</a></p>
     </div>
-    <hr>
+
     <div class="middle">
       <h3>Imigre Logo for Gimp 2.10 - 3.0rc1</h3>
       <p>Un logo ondulato e bicolore, portato alla nuova versione di Gimp <br>
@@ -479,8 +429,8 @@ div.topbar {
           title="Dracula! LOGO" target="_blank" download="">Right click, save
           link as...</a> </p>
     </div>
-    <hr>
-    <hr>
+
+
     <div class="middle">
       <h3>Sweet Candy Logo for Gimp 2.10 - 2.99.19</h3>
       <p>A logo that recreates the effect of Christmas sweets<br>
@@ -520,7 +470,7 @@ div.topbar {
           title="Wrought Iron Logo" target="_blank" download="">Right click,
           save link as...</a> </p>
     </div>
-    <hr>
+
     <div class="middle">
       <h3>Glossy Galaxy for Gimp 2.10 - 3.0 rc1</h3>
       <p>An old classic updated for Gimp 3.0 rc1 - 2.10<br>
@@ -566,7 +516,7 @@ div.topbar {
           title="yaChrome logo" target="_blank" download="">Right click, save
           link as...</a> </p>
     </div>
-    <hr>
+
     <div class="middle">
       <h3>Egg melt for Gimp 2.10 - 2.99.19</h3>
       <p>The famous fried egg for Gimp 2.99.19 - 2.10<br>
@@ -601,7 +551,7 @@ div.topbar {
           title="Pijama logo" target="_blank" download="">Right click, save link
           as...</a> </p>
     </div>
-    <hr>
+
     <div class="middle">
       <h3>HighLighted Logo for Gimp 2.10 - 3.0 rc2</h3>
       <p>A simple style with the same light reflections as Emap for Gimp 3.0 rc1
@@ -639,6 +589,7 @@ div.topbar {
         <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/300_mhbevel3d.scm"
           title="MH 3d Bevel Logo" target="_blank" download="">Right click, save
           link as...</a> </p>
+    </div>
     </div>
     
   </body>
