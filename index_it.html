@@ -54,7 +54,24 @@ a:hover {
   gap: 20px;
   align-self: stretch;
 }
-
+@media only screen and (max-width: 1000px) {
+.container {
+  display: grid;
+  grid-auto-flow: row dense;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  align-self: stretch;
+}
+}
+@media only screen and (max-width: 800px) {
+.container {
+  display: grid;
+  grid-auto-flow: row dense;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+  align-self: stretch;
+}
+}
 .container div {
   border: 2px solid white;
   border-radius: 20px;
@@ -104,20 +121,19 @@ div.topbar {
         title="Tutto il repo in Zip" target="_blank">Tutto il repo in Zip</a><a href="https://github.com/vitforlinux-gimp/font-downloader/releases/download/font/Script-fu-needed-font.zip"
         title="Usare questi script-fu è meglio con questi fonts" target="_blank">Font necessari</a><a href="https://github.com/vitforlinux-gimp/scm"
         title="on Github" target="_blank">View on Github</a></div>
-    <h1> Vitforlinux Script-fu SCM aggiornati per Gimp 2.10 e  2.99.19 / 3.0 rc1 </h1>
-    <h2>Script-fu SCM  - Attenzione: questi script funzionano su Gimp 2.10 e sulla versione di Gimp 2.99.19 o 3.0rc1 "fresca di giornata"... prego aggiornare<br>
-    Il collegamento ad alcuni plug-in GEGL è stato tolto da Script-fu SCM, presto far&ograve; una nuova serie 300 funzionante</h2>
+    <h1> Vitforlinux Script-fu SCM aggiornati per Gimp 2.10 e  3.0 / 3.2 rc2 </h1>
+    <h2>Script-fu SCM  - Attenzione: questi script funzionano su Gimp 2.10 e sulla versione di Gimp 3.0 o 3.2 rc2 "fresca di giornata"... prego aggiornare<br>
+    Il collegamento ad alcuni plug-in GEGL è stato tolto da Script-fu SCM</h2>
     <div class="container">
     <div class="middle">
-      <h3>Polished Plastic Fun per Gimp 2.10 e 3.0 rc1</h3>
+      <h3>Polished Plastic Fun per Gimp 2.10 e 3.2 rc2</h3>
       <p>Ha incredibili possibilità&nbsp; di riempimento sia del testo che dello
         sfondo, il contorno e il colore dell'ombra possono essere modificati.<br>
               <br>Usa il font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTBlimpo.otf" title="QTBlimpo" target="_blank">QTBlimpo</a><br><br>
         File &gt; Create &gt; Logos &gt; Polished Plastic Fun 300 Logo<br>
         Filters &gt; Alpha to Logo &gt; Polished Plastic Fun 300 Alpha
-        <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/Plastic_Fun.jpg"
-          >
-      <br>Versione 300 con supporto a Gimp 3.0 rc1<br><br>
+        <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/Plastic_Fun.jpg">
+	<br>
               <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/master/polished_plastic_fun_300.scm"
           title="polished plastic fun 300" target="_blank" download="">Click
           destro,&nbsp; salva destinazione con nome</a></p>
@@ -125,7 +141,7 @@ div.topbar {
     </div>
     <div class="middle">
       <h3><br>
-        Plastic or Glass per Gimp 2.10 - 3.0rc1 </h3>
+        Plastic or Glass per Gimp 2.10 - 3.2 rc2 </h3>
       <p> Permette di fare effetti tipo plastica e vetro, aggiunto un nuovo
         effetto Pattern + Colore (Lighten Only o Overlay). È possible anche
         Shrink / Grow e Outline solo nel testo <br>
@@ -141,7 +157,7 @@ div.topbar {
  </p>
     </div>
     <div class="middle">
-      <h3> Lord of The Rings per Gimp 2.10 - 3.0 rc1</h3>
+      <h3> Lord of The Rings per Gimp 2.10 - 3.2 rc2</h3>
       <p>Un classico degli script aggiornato per Gimp 2.10 da il meglio con font
         Ringbearer medium più effetti di riempimento sono possibili.<br>
         <br>
@@ -153,20 +169,20 @@ div.topbar {
 </p>    </div>
     
     <div class="middle">
-      <h3> Scanner Logo per Gimp 2.10 - 2.99.19</h3>
+      <h3> Scanner Logo per Gimp 2.10 - 3.2 rc2</h3>
       <p>Uno script classico aggiornato per Gimp 2.10, lo rimpimento del testo
         ha più stili, il colore della linea di contorno elo sfondo si possono
         cambiare.<br>
         <br>
         <br>
         File&gt; Crea&gt; Logos&gt; Scanner Logo <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/scanner-logo.jpg"><br>
-        <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/299_scanner-logo.scm"
+        <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/300_scanner-logo.scm"
           title="scanner logo" target="_blank" download="">Click destro,&nbsp;
           salva destinazione con nome</a>
  </p>
     </div>
     <div class="middle">
-      <h3> Skywriting per Gimp 2.10 - 3.0 rc1</h3>
+      <h3> Skywriting per Gimp 2.10 - 3.2 rc2</h3>
       <p>Se il vostro sogno è scrivere con le nuvole questo script-fu può!<br>
         <br> Usa il font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTHelvet-Black.otf" title="QTHelvet Black" target="_blank">QTHelvet Black</a><br><br>
         File&gt; Crea&gt; Logos&gt; Skywriting 300 Logo<br>
@@ -178,7 +194,7 @@ div.topbar {
  </p>
     </div>
     <div class="middle">
-      <h3> 3D wood per Gimp 2.10 - 3.0rc2 </h3>
+      <h3> 3D wood per Gimp 2.10 - 3.2rc2 </h3>
       <p>&nbsp; Lo script 3d wood genera delle tettere con una&nbsp; bumpmap
         effetto legno.È possibile Shrink / Grow e Outline,&nbsp; <br>
         <br> Usa il font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTHelvet-Black.otf" title="QTHelvet-Black" target="_blank">QTHelvet-Black</a><br><br>
@@ -191,7 +207,7 @@ div.topbar {
     </div>
     
     <div class="middle">
-      <h3> Reflex Logo per Gimp 2.10 - 3.0 rc1</h3>
+      <h3> Reflex Logo per Gimp 2.10 - 3.2 rc2</h3>
       <p>Uno script classico aggiornato per Gimp 2.10 e 3.0 rc1, lo rimpimento del testo
         ha la possibilità di essere riempito con gradienti diversi.<br>
         <br> Usa il font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTBodiniPoster-Italic.otf" title="QTBodiniPoster Italic" target="_blank">QTBodiniPoster Italic</a><br><br>
@@ -235,7 +251,7 @@ div.topbar {
     </div>
     
     <div class="middle">
-      <h3>Emap Logo per Gimp 2.10 - 3.0rc1</h3>
+      <h3>Emap Logo per Gimp 2.10 - 3.2rc2</h3>
       <p>Si basa sui gradienti e sulle nuvole, il risultato è assolutamente
         casuale e irripetibile<br>
         <br>
@@ -262,7 +278,7 @@ div.topbar {
  </p>
     </div>
     <div class="middle">
-      <h3>Irregular Slab per Gimp 2.10 - 3.0rc2</h3>
+      <h3>Irregular Slab per Gimp 2.10 - 3.2rc2</h3>
       <p>Simula l'effetto di un pezzo di legno rotto, ha molte regolazioni per
         rendere l'effetto più: realistico, gli sfondi e colori possono essere
         cambiati<br>
@@ -329,10 +345,10 @@ div.topbar {
     </div>
     <div class="middle">
       <h3>Dove si installano gli Script-FU?</h3>
-      <p>Su Linux in ~/.config/GIMP/2.10(o 3.0)/script<br>
+      <p>Su Linux in ~/.config/GIMP/2.10(o 3.0 o 3.2)/script<br>
         <br>
         Su Windows in C:\Users\nome_utente\AppData\Roaming\GIMP\2.10(o
-        3.0)\scripts\, x<br>
+        3.0 o 3.2)\scripts\, x<br>
         <br>
         Ma puoi anche tenerli in una cartella diversa e configurarla in
         Modifica&gt;Preferenze&gt; Cartelle&gt; Script</p>
@@ -344,21 +360,9 @@ div.topbar {
       <p>Le combinazioni di tasti possono esssere cambiate in<br>
         Modifica&gt;Preferenze&gt; Interfaccia&gt; Configura Tasti interfaccia</p>
     </div>
-    
+
     <div class="middle">
-      <h3>Safari Logo e Alpha per Gimp 2.10 - 3.0 rc1</h3>
-      <p>È una versione aggiornata di Safari 2.4, fa una piacevole serie di
-        effetti animalier colorati con mappa gradiente<br>
-        <br>
-        Script-Fu&gt; Logos &gt; Safari 300 LOGO<br>
-        Script-Fu&gt; Alpha-to-Logo&gt; Safari 300 ALPHA<img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/safari.jpg">
-        <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/300_safari.scm"
-          title="Logo SAFARI" target="_blank" download="">Click destro,&nbsp;
-          salva destinazione con nome</a>
-      </p>
-    </div>
-    <div class="middle">
-      <h3>Furry Logo per Gimp 2.10 - 3.0 rc1</h3>
+      <h3>Furry Logo per Gimp 2.10 - 3.2 rc2</h3>
       <p>Un logo peloso può sempre servire, si possono usare due colori, ci sono
         molte regolazioni<br>
         <br>
@@ -385,7 +389,7 @@ div.topbar {
     </div>
     
         <div class="middle">
-      <h3>Imigre Logo per Gimp 2.10 - 3.0rc1</h3>
+      <h3>Imigre Logo per Gimp 2.10 - 3.2rc2</h3>
       <p>Un logo ondulato e bicolore, portato alla nuova versione di Gimp
         <br><br> Usa il font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTSchoolCentury-Bold.otf" title="QTFraktur" target="_blank">QTSchoolCentury Bold</a><br><br>
         File&gt; Crea&gt; Logotipi&gt; Imigre 300 <br>

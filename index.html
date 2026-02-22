@@ -54,7 +54,24 @@ a:hover {
   gap: 20px;
   align-self: stretch;
 }
-
+@media only screen and (max-width: 1000px) {
+.container {
+  display: grid;
+  grid-auto-flow: row dense;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  align-self: stretch;
+}
+}
+@media only screen and (max-width: 800px) {
+.container {
+  display: grid;
+  grid-auto-flow: row dense;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+  align-self: stretch;
+}
+}
 .container div {
   border: 2px solid white;
   border-radius: 20px;
@@ -105,14 +122,14 @@ div.topbar {
         title="Using these script-fus is best with these fonts" target="_blank">Needed
         Font</a><a href="https://github.com/vitforlinux-gimp/scm" title="on Github"
         target="_blank">View on Github</a></div>
-    <h1> Vitforlinux Updated SCM script-fus for Gimp 2.10 and 2.99.19 / 3.0 rc1</h1>
+    <h1> Vitforlinux Updated SCM script-fus for Gimp 2.10 and 3.0 / 3.2 rc2</h1>
     <h2>Script-fu SCM - Warning: these scripts work on Gimp 2.10 and on the
       "newest" version of Gimp 2.99.19 or 3.0rc1... please update.<br>
       The link to some GEGL plug-ins has been removed from Script-fu SCM, I will
       make a new working 300 series soon. </h2>
    <div class="container">
     <div class="middle">
-      <h3>Polished Plastic Fun for Gimp 2.10 - 3.0 rc1 </h3>
+      <h3>Polished Plastic Fun for Gimp 2.10 - 3.2 rc2 </h3>
       <p> It has amazing possibilities of both text and background filling,
         outline and shadow color can be changed.<br>
         <br>
@@ -130,7 +147,7 @@ div.topbar {
           click, save link as... </a></p>
     </div>
     <div class="middle">
-      <h3> Plastic or Glass for Gimp 2.10 - 3.0rc1 </h3>
+      <h3> Plastic or Glass for Gimp 2.10 - 3.2 rc2 </h3>
       <p> Allows you to make effects like plastic and glass, transparence, added
         a new effect Pattern Lighten Only or Overlay. Is possible Shrink / Grow
         and Outline text<br>
@@ -146,7 +163,7 @@ div.topbar {
           save link as... </a></p>
     </div>
     <div class="middle">
-      <h3> Lord of The Rings for Gimp 2.10 - 3.0 rc1</h3>
+      <h3> Lord of The Rings for Gimp 2.10 - 3.2 rc2</h3>
       <p>Classic script updated for Gimp 2.10 better with font Ringbearer medium
         more fill effect are possible.<br>
         <br>
@@ -159,18 +176,18 @@ div.topbar {
     </div>
 
     <div class="middle">
-      <h3> Scanner Logo for Gimp 2.10 and 2.99.19</h3>
+      <h3> Scanner Logo for Gimp 2.10 and 3.2 rc2 </h3>
       <p>Classic script updated for Gimp 2.10 more fill effect possible, line
         color&nbsp; and background are changeable<br>
         <br>
         <br>
         File&gt; Create&gt; Logos&gt; Scanner Logo <img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/scanner-logo.jpg"><br>
-        <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/299_scanner-logo.scm"
+        <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/300_scanner-logo.scm"
           title="scanner logo" target="_blank" download=""> Right click, save
           link as... </a></p>
     </div>
     <div class="middle">
-      <h3> Skywriting for Gimp 2.10 and 3.0 rc1</h3>
+      <h3> Skywriting for Gimp 2.10 and 3.2 rc2</h3>
       <p>Your dream is write with the clouds? This script can do it!<br>
         <br>
         Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTHelvet-Black.otf"
@@ -185,7 +202,7 @@ div.topbar {
           as... </a></p>
     </div>
     <div class="middle">
-      <h3> 3D wood for Gimp 2.10 - 3.0rc2 </h3>
+      <h3> 3D wood for Gimp 2.10 - 3.2 rc2 </h3>
       <p>&nbsp; 3d wood make wood bumped text with wood like&nbsp; bump map.Is
         possible Shrink / Grow and Outline text <br>
         <br>
@@ -201,7 +218,7 @@ div.topbar {
     </div>
 
     <div class="middle">
-      <h3> Reflex Logo for Gimp 2.10 - 3.0 rc1</h3>
+      <h3> Reflex Logo for Gimp 2.10 - 3.2 rc2</h3>
       <p>A classic script updated for Gimp 2.10 - 3.0 rc1, text fill has the
         option to be filled with different gradients.<br>
         <br>
@@ -250,7 +267,7 @@ div.topbar {
     </div>
 
     <div class="middle">
-      <h3>Emap Logo for Gimp 2.10 - 3.0rc1</h3>
+      <h3>Emap Logo for Gimp 2.10 - 3.2 rc2</h3>
       <p>It is based on gradients and clouds, the result is absolutely random
         and unrepeatable<br>
         <br>
@@ -274,7 +291,7 @@ div.topbar {
           as...</a></p>
     </div>
     <div class="middle">
-      <h3>Irregular Slab for Gimp 2.10 - 3.0rc2</h3>
+      <h3>Irregular Slab for Gimp 2.10 - 3.2 rc2</h3>
       <p>Simulates the effect of a piece of broken wood, has many adjustments to
         make the effect more: realistic, backgrounds and colors can be changed<br>
         <br>
@@ -356,18 +373,7 @@ div.topbar {
     </div>
 
     <div class="middle">
-      <h3>Safari Logo and Alpha for Gimp 2.10 - 3.0 rc1</h3>
-      <p>It is an updated version of Safari 2.4, it makes a nice series of
-        Colorful animal effects with gradient map<br>
-        <br>
-        Script-Fu&gt; Logos &gt; Safari 300 LOGO<br>
-        Script-Fu&gt; Alpha-to-Logo&gt; Safari 300 ALPHA<img loading="lazy" src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/safari.jpg">
-        <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/300_safari.scm"
-          title="Logo SAFARI" target="_blank" download="">Right click, save link
-          as...</a> </p>
-    </div>
-    <div class="middle">
-      <h3>Furry Logo for Gimp 2.10 - 3.0 rc1</h3>
+      <h3>Furry Logo for Gimp 2.10 - 3.2 rc2</h3>
       <p>A furry logo can always be useful, you can use two colors, they are
         there many adjustments<br>
         <br>
@@ -392,7 +398,7 @@ div.topbar {
     </div>
 
     <div class="middle">
-      <h3>Imigre Logo for Gimp 2.10 - 3.0rc1</h3>
+      <h3>Imigre Logo for Gimp 2.10 - 3.2 rc2</h3>
       <p>Un logo ondulato e bicolore, portato alla nuova versione di Gimp <br>
         <br>
         Usa il font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTSchoolCentury-Bold.otf"
@@ -591,6 +597,5 @@ div.topbar {
           link as...</a> </p>
     </div>
     </div>
-    
   </body>
 </html>
