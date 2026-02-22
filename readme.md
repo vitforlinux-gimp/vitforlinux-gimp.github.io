@@ -1,6 +1,6 @@
 Updated Script-fu for Gimp 2.10 and 2.99.19 / 3.0 rc1
 
-If you want to see the preview page of the updated scm script-fus for Gimp 2.99.19 and 2.10 see:
+If you want to see the preview page of the updated scm script-fus for Gimp 2.10 and 3.0 3.2 rc2 see:
 
 https://vitforlinux-gimp.github.io/
 
