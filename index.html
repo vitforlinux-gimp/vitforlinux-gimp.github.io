@@ -14,7 +14,7 @@ body {
 h1 {
   color: #ff6600;
   margin-left: 20px;
-  padding-top: 35px;
+  padding-top: 55px;
 }
 
 h2 {
@@ -112,6 +112,12 @@ div.topbar {
   position: fixed;
   background-color: #333333;
   }
+ 
+.hidden { display: none; }
+   
+ #searchBar { padding: 10px; width: 300px; margin-top: 10px;   border: 2px solid white;
+  border-radius: 20px;display: flex; top 100px; right:0; position:fixed ;
+  background-color: #444; color: white;}
 
 </style> </head>
   <body>
@@ -122,6 +128,8 @@ div.topbar {
         title="Using these script-fus is best with these fonts" target="_blank">Needed
         Font</a><a href="https://github.com/vitforlinux-gimp/scm" title="on Github"
         target="_blank">View on Github</a></div>
+ <input id="searchBar" onkeyup="searchContent()" placeholder="Search..."
+      type="text">
     <h1> Vitforlinux Updated SCM script-fus for Gimp 2.10 and 3.0 / 3.2 rc2 -
       Download</h1>
     <h2>Script-fu SCM - Warning: these scripts are programmed for Gimp 2.10 and
@@ -670,5 +678,21 @@ div.topbar {
             save link as...</a> </p>
       </div>
     </div>
+    <script>
+        function searchContent() {
+            // Prende il valore della ricerca e lo converte in minuscolo
+            let input = document.getElementById('searchBar').value.toLowerCase();
+            let items = document.getElementsByClassName('middle');
+
+            for (let i = 0; i < items.length; i++) {
+                // Controlla se il testo dell'elemento contiene la stringa cercata
+                if (items[i].innerText.toLowerCase().includes(input)) {
+                    items[i].classList.remove('hidden'); // Mostra
+                } else {
+                    items[i].classList.add('hidden'); // Nasconde
+                }
+            }
+        }
+    </script>
   </body>
 </html>
