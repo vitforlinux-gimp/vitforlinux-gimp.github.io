@@ -118,6 +118,11 @@ div.topbar {
  #searchBar { padding: 10px; width: 300px; margin-top: 10px;   border: 2px solid white;
   border-radius: 20px;display: flex; top 100px; right:0; position:fixed ;
   background-color: #444; color: white;}
+       
+  input::placeholder {
+  font-weight: bold;
+  opacity: 1;
+  color: white; }
 
 </style> </head>
   <body>
@@ -128,12 +133,12 @@ div.topbar {
         title="Usare questi script-fu è meglio con questi fonts" target="_blank">Font
         necessari</a><a href="https://github.com/vitforlinux-gimp/scm" title="on Github"
         target="_blank">View on Github</a></div>
-    <input id="searchBar" onkeyup="searchContent()" placeholder="Cerca parole chiave..."
+    <input id="searchBar" onkeyup="searchContent()" placeholder="Cerca... ? per aiuto"
       type="text">
-    <h1> Vitforlinux Script-fu SCM aggiornati per Gimp 2.10 e 3.0 / 3.2
-      rc3-Download</h1>
-    <h2>Script-fu SCM - Attenzione: questi script sono programmati per Gimp 2.10
-      e Gimp 3.0 o 3.2 rc3.<br>
+    <h1> Vitforlinux Script-fu SCM logo aggiornati per Gimp 2.10 e 3.0 / 3.2 rc3
+      Download</h1>
+    <h2>Script-fu SCM - Attenzione: questi script logo sono programmati per Gimp
+      2.10 e Gimp 3.0 o 3.2 rc3.<br>
       Gli script-fu per Gimp 2.10 non funzionano su Gimp 3.x</h2>
     <div class="container">
       <div class="middle">
@@ -224,7 +229,8 @@ div.topbar {
       </div>
       <div class="middle">
         <h3> Skywriting per Gimp 2.10 - 3.2 rc3</h3>
-        <p>Se il vostro sogno è scrivere con le nuvole questo script-fu può!<br>
+        <p><!--StartFragment-->Se Il tuo sogno è fare un logo con le nuvole
+          questo script può farlo.<br>
           <br>
           Usa il font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTHelvet-Black.otf"
             title="QTHelvet Black" target="_blank">QTHelvet Black</a><br>
