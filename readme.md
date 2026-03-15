@@ -1,4 +1,4 @@
-Updated Script-fu scm logo for Gimp 2.10 and 3.0 / 3.2 rc2
+Updated Script-fu scm logo download for Gimp 2.10 and 3.0 / 3.2 rc3
 
 If you want to see the preview page of the updated scm script-fus logo for Gimp 2.10 and 3.0 3.2 rc2 see:
 
