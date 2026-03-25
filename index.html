@@ -2,19 +2,256 @@
 <html lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Vitforlinux Gimp 2.10 and 3.0 3.2 updated script-fu scm logo download</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <title>Vitforlinux Gimp 3.0 3.2 and 2.10 updated script-fu scm logo download</title>
     <style>
-body {
-  background-color: #333333;
-  color: white;
-  font-family: Arial, Tahoma, sans-serif;
-  font-size: 1em;
-}
+  :root {
+    --main-color: #ff6600;
+    --main-color-rgba: 255,102,0;
+  }
+  /* Reset */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #444, #666);
+    min-height: 200vh;
+    color: #eee;
+  }
+
+  /* Navbar container */
+  nav {
+    position: sticky;
+    top: 1rem;
+    z-index: 1000;
+    display: grid;
+    grid-template-columns: repeat(5, auto) 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1rem 2rem;
+    background: rgba(20,20,20,0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 2rem;
+    border: 1px solid rgba(255 255 255 / 0.1);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    transform-origin: top center;
+    transition:
+      transform 0.3s ease,
+      background-color 0.3s ease,
+      padding 0.3s ease;
+  }
+  nav.shrink {
+    transform: scale(0.85);
+    background: rgba(20,20,20,0.3);
+    padding: 0.6rem 2rem;
+    box-shadow: 0 4px 24px rgba(100,40,0,0.4);
+  }
+
+  /* Links */
+  .nav-links {
+    display: contents;
+  }
+
+  nav a {
+    position: relative;
+    text-decoration: none;
+    color: #eee;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.25rem 0;
+    cursor: pointer;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+  nav a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: var(--main-color);
+    transition: width 0.3s ease, left 0.3s ease;
+    border-radius: 2px;
+  }
+  nav a:hover,
+  nav a:focus-visible {
+    color: var(--main-color);
+    outline: none;
+  }
+  nav a:hover::after,
+  nav a:focus-visible::after {
+    width: 100%;
+    left: 0;
+  }
+
+  /* Unified Search Input */
+  #searchBar {
+    grid-column: 6 / 7;
+    justify-self: end;
+    width: 220px;
+    padding: 0.4rem 1.2rem 0.4rem 0.8rem;
+    font-size: 1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255 255 255 / 0.3);
+    background: rgba(255 255 255 / 0.1);
+    color: white;
+    outline: none;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(6px);
+  }
+  #searchBar::placeholder {
+    color: white;
+  }
+  #searchBar:focus {
+    background: rgba(255,102,0,0.15);
+    border-color: var(--main-color);
+    box-shadow: 0 0 5px var(--main-color);
+  }
+
+  /* Hamburger menu (hidden on large) */
+  .menu-toggle {
+    display: none;
+    grid-column: 6 / 7;
+    justify-self: end;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 28px;
+    height: 22px;
+    position: relative;
+    z-index: 1100;
+  }
+  .menu-toggle span,
+  .menu-toggle span::before,
+  .menu-toggle span::after {
+    display: block;
+    background: var(--main-color);
+    height: 3px;
+    border-radius: 3px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    transition: all 0.3s ease;
+  }
+  .menu-toggle span {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .menu-toggle span::before {
+    content: '';
+    top: -8px;
+    position: absolute;
+  }
+  .menu-toggle span::after {
+    content: '';
+    top: 8px;
+    position: absolute;
+  }
+  .menu-toggle.open span {
+    background: transparent;
+  }
+  .menu-toggle.open span::before {
+    transform: rotate(45deg);
+    top: 0;
+  }
+  .menu-toggle.open span::after {
+    transform: rotate(-45deg);
+    top: 0;
+  }
+
+  /* Dropdown menu */
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 2rem;
+    background: rgba(20,20,20,0.85);
+    backdrop-filter: blur(15px);
+    border-radius: 0 0 1rem 1rem;
+    box-shadow: 0 8px 24px rgba(255,102,0,0.3);
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+    width: 220px;
+    z-index: 999;
+  }
+  .dropdown-menu.open {
+    max-height: 400px;
+  }
+  .dropdown-menu a {
+    display: block;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    color: #eee;
+    font-weight: 600;
+    font-size: 1.1rem;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+  }
+  .dropdown-menu a:last-child {
+    border-bottom: none;
+  }
+  .dropdown-menu a:hover,
+  .dropdown-menu a:focus-visible {
+    background: rgba(255,102,0,0.1);
+    color: var(--main-color);
+    outline: none;
+  }
+  .dropdown-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    height: 2px;
+    width: 0;
+    background: var(--main-color);
+    border-radius: 2px;
+    transition: width 0.3s ease, left 0.3s ease;
+  }
+  .dropdown-menu a:hover::after,
+  .dropdown-menu a:focus-visible::after {
+    width: 100%;
+    left: 0;
+  }
+
+  /* Hide dropdown menu and hamburger on big screens */
+  @media (min-width: 769px) {
+    .dropdown-menu,
+    .menu-toggle {
+      display: none;
+    }
+  }
+
+  /* Responsive navbar adjustments on small screens */
+  @media (max-width: 768px) {
+    nav {
+      grid-template-columns: 1fr auto auto;
+      padding: 1rem 1.5rem;
+      border-radius: 1rem 1rem 0 0;
+    }
+    .nav-links {
+      display: none;
+    }
+    #searchBar {
+      grid-column: 2 / 3;
+      width: 140px;
+      order: 2;
+    }
+    .menu-toggle {
+      grid-column: 3 / 4;
+      order: 3;
+      display: block;
+    }
+  }
 
 h1 {
   color: #ff6600;
-  margin-left: 20px;
-  padding-top: 55px;
+  margin-top: 25px;
+  margin-left: 10px;
+  text-shadow: 1px 1px 3px black;
 }
 
 h2 {
@@ -23,28 +260,30 @@ h2 {
   margin-top: 20px;
   clear: both;
 }
-
-h3 {
+  h3 {
   color: white;
   text-align: center;
   clear: both;
 }
 
-a {
+p a {
   color: white;
   padding: 4px 8px;
   margin: 20px 5px 0 5px;
-  border: 2px solid white;
-  background-color: #cc6633;
   text-decoration: none;
   font-weight: 600;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 1);
-  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 1);
+  border-radius: 20px;
+  border: 1px solid rgba(255 255 255 / 0.3);
+ background: rgba(255 255 255 / 0.1);
   transition: background-color 0.3s ease;
 }
 
-a:hover {
-  background-color: #e6804d;
+p a:hover {
+ background: rgba(255,102,0,0.15);
+ border-color: var(--main-color);
+ box-shadow: 0 8px 24px var(--main-color);
+  color:white; 
 }
 
 .container {
@@ -53,6 +292,7 @@ a:hover {
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   align-self: stretch;
+  padding:20px;
 }
 @media only screen and (max-width: 1000px) {
 .container {
@@ -73,9 +313,9 @@ a:hover {
 }
 }
 .container div {
-  border: 2px solid white;
+  border: 1px solid rgba(255 255 255 / 0.1);
   border-radius: 20px;
-  background-color: #444;
+  background: linear-gradient(135deg, #1e1e1e, #444);
 }
 
 .container div p {
@@ -94,56 +334,48 @@ div.middle p img {
 }
 
 div.middle p img:hover {
-  transform: scale(2);
+  transform: scale(0.9);
   border-radius: 12px;
+  position:absolute;
+  left:30px; right:30px;
+  margin:auto;
 }
-div.topbar {
-  display: flex;
-  width: 100%;
-  height: 52px;
-  top: 0;
-  left: 0;
-  margin-top:-23px;
-  border-bottom: 2px solid white;
-  border-radius: 0 0 12px 12px;
-  flex-direction: row;
-  justify-content: flex-end;
-  vertical-align: top;
-  position: fixed;
-  background-color: #333333;
+
+  /* Page content styling */
+
+  .hidden {
+    display: none;
   }
- 
-.hidden { display: none; }
-   
- #searchBar { padding: 10px; width: 300px; margin-top: 20px;   border: 2px solid white;
-  border-radius: 20px;display: flex; top: 100px; right:0; position:fixed ;
-  background-color: #444; color: white;}
-      
-  input::placeholder {
-  font-weight: bold;
-  opacity: 1;
-  color: white; }
-
-
-</style> </head>
+</style>
+  </head>
   <body>
-    <div class="topbar"><a href="https://vitforlinux-gimp.github.io/index_it.html"
-        title="italiano" target="_blank">it</a><a href="https://vitforlinux-gimp.github.io/"
-        title="english" target="_blank">en</a><a href="https://github.com/vitforlinux-gimp/scm/releases/download/3.0/Script-fu-300.zip"
-        title="Latest in Zip" target="_blank">Download Latest</a><a href="https://github.com/vitforlinux-gimp/font-downloader/releases/download/font/Script-fu-needed-font.zip"
-        title="Using these script-fus is best with these fonts" target="_blank">Needed
-        Font</a><a href="https://github.com/vitforlinux-gimp/scm" title="on Github"
-        target="_blank">View on Github</a></div>
-    <form> <input id="searchBar" onkeyup="searchContent()" placeholder="Search... ? for help"
-        type="text"></form>
-    <h1> Vitforlinux Updated SCM script-fus logo for Gimp 2.10 and 3.0 / 3.2
-      Download</h1>
-    <h2>Script-fu SCM - Warning: these scripts logo are programmed for Gimp 2.10
-      and Gimp 3.0 or 3.2 .<br>
+    <nav role="navigation" aria-label="Primary navigation" id="navbar">
+      <div class="nav-links">
+      <a href="https://vitforlinux-gimp.github.io/" tabindex="0">En</a>
+      <a href="https://vitforlinux-gimp.github.io/index_it.html" tabindex="0">It</a>
+	<a href="https://github.com/vitforlinux-gimp/scm/releases/download/3.0/Script-fu-300.zip" tabindex="0">Download Latest</a>
+	<a href="https://github.com/vitforlinux-gimp/font-downloader/releases/download/font/Script-fu-needed-font.zip" tabindex="0">Needed Fonts</a>
+        <a href="https://github.com/vitforlinux-gimp/scm" tabindex="0">View on Github</a> </div>
+      <input id="searchBar" placeholder="Search... ? for help" aria-label="Search site content"
+        oninput="searchContent()" type="search"> <button class="menu-toggle"
+        aria-label="Toggle menu" aria-expanded="false" aria-controls="dropdown-menu"> <span>&nbsp;</span></button>
+      <div class="dropdown-menu" id="dropdown-menu" aria-hidden="true" tabindex="-1">
+      <a href="https://vitforlinux-gimp.github.io/" tabindex="-1">En</a>
+      <a href="https://vitforlinux-gimp.github.io/index_it.html" tabindex="-1">It</a>
+      <a href="https://github.com/vitforlinux-gimp/scm/releases/download/3.0/Script-fu-300.zip" tabindex="-1">Download Latest</a>
+      <a href="https://github.com/vitforlinux-gimp/font-downloader/releases/download/font/Script-fu-needed-font.zip" tabindex="-1">Needed Fonts</a>
+        <a href="https://github.com/vitforlinux-gimp/scm" tabindex="-1">View on Github</a> </div>
+    </nav>
+    <main>
+      <section>
+    <h1> Vitforlinux Updated SCM script-fus logo for Gimp  3.0 / 3.2 and 2.10 Download</h1>
+    <h2>Script-fu SCM - Warning: these scripts logo are programmed for Gimp 3.0 or 3.2 and 2.10.<br>
       Old Script-Fu for Gimp 2.10 do not work on Gimp 3.x.</h2>
-    <div class="container">
+      </section>
+    </main>
+     <div class="container">
       <div class="middle">
-        <h3>Polished Plastic Fun for Gimp 2.10 - 3.2</h3>
+        <h3>Polished Plastic Fun for Gimp 3.2 - 2.10</h3>
         <p> It has amazing possibilities of both text and background filling,
           outline and shadow color can be changed.<br>
           <br>
@@ -159,7 +391,7 @@ div.topbar {
             link as... </a></p>
       </div>
       <div class="middle">
-        <h3> Plastic or Glass for Gimp 2.10 - 3.2</h3>
+        <h3> Plastic or Glass for Gimp 3.2 - 2.10</h3>
         <p> Allows you to make effects like plastic and glass, transparence,
           added a new effect Pattern Lighten Only or Overlay. Is possible Shrink
           / Grow and Outline text<br>
@@ -175,7 +407,7 @@ div.topbar {
             as... </a></p>
       </div>
       <div class="middle">
-        <h3> 3D wood for Gimp 2.10 - 3.2</h3>
+        <h3> 3D wood for Gimp 3.2 - 2.10</h3>
         <p>&nbsp; 3d wood make wood bumped text with wood like&nbsp; bump map.Is
           possible Shrink / Grow and Outline text <br>
           <br>
@@ -189,7 +421,7 @@ div.topbar {
             title="3dwood" target="_blank"> Right click, save link as... </a></p>
       </div>
       <div class="middle">
-        <h3> Lord of The Rings for Gimp 2.10 - 3.2</h3>
+        <h3> Lord of The Rings for Gimp 3.2 - 2.10</h3>
         <p>Classic script updated for Gimp 2.10 better with font Ringbearer
           medium more fill effect are possible.<br>
           <br>
@@ -201,8 +433,8 @@ div.topbar {
             as... </a></p>
       </div>
       <div class="middle">
-        <h3> Scanner Logo for Gimp 2.10 and 3.2</h3>
-        <p>Classic script updated for Gimp 2.10 more fill effect possible, line
+        <h3> Scanner Logo for Gimp 3.2 - 2.10</h3>
+        <p>Classic script updated for Gimp 3.2 more fill effect possible, line
           color&nbsp; and background are changeable<br>
           <br>
           <br>
@@ -212,7 +444,7 @@ div.topbar {
             title="scanner logo" target="_blank"> Right click, save link as... </a></p>
       </div>
       <div class="middle">
-        <h3> Old Style Logo for Gimp 2.10 and 3.2</h3>
+        <h3> Old Style Logo for Gimp 3.2 - 2.10</h3>
         <p>A new interpretation of Scanner Logo, line color and background are
           changeable<br>
           <br>
@@ -225,7 +457,7 @@ div.topbar {
             title="scanner logo" target="_blank"> Right click, save link as... </a></p>
       </div>
       <div class="middle">
-        <h3> Skywriting for Gimp 2.10 and 3.2</h3>
+        <h3> Skywriting for Gimp 3.2 - 2.10</h3>
         <p><!--StartFragment-->If your dream is to make a logo with clouds this
           script can do it.<br>
           <br>
@@ -239,7 +471,7 @@ div.topbar {
             title="skywriting" target="_blank"> Right click, save link as... </a></p>
       </div>
       <div class="middle">
-        <h3> Reflex Logo for Gimp 2.10 - 3.2</h3>
+        <h3> Reflex Logo for Gimp 3.2 - 2.10</h3>
         <p>A classic script updated for Gimp 2.10 - 3.0 rc1, text fill has the
           option to be filled with different gradients.<br>
           <br>
@@ -254,7 +486,7 @@ div.topbar {
             title="Reflex Logo" target="_blank">Right click, save link as...</a></p>
       </div>
       <div class="middle">
-        <h3>Logo Workshop for Gimp 2.10 - 3.2</h3>
+        <h3>Logo Workshop for Gimp 3.2 - 2.10</h3>
         <p>This script allows you to create embossed text and adjust the
           thickness of the outline, the extended PLUS version has complete
           management of gradients in 12 directions on the three levels, the
@@ -273,7 +505,7 @@ div.topbar {
         </p>
       </div>
       <div class="middle">
-        <h3>Logo ToolBox for Gimp 2.10 - 3.2</h3>
+        <h3>Logo ToolBox for Gimp 3.2 - 2.10</h3>
         <p>It is an extended version of the Workshop logo with 3D and bump map
           capabilities<br>
           <br>
@@ -284,7 +516,7 @@ div.topbar {
             title="Logo ToolBox" target="_blank">Right click, save link as...</a></p>
       </div>
       <div class="middle">
-        <h3>Emap Logo for Gimp 2.10 - 3.2</h3>
+        <h3>Emap Logo for Gimp 3.2 - 2.10</h3>
         <p>It is based on gradients and clouds, the result is absolutely random
           and unrepeatable<br>
           <br>
@@ -295,7 +527,7 @@ div.topbar {
             title="Emap Logo" target="_blank">Right click, save link as...</a></p>
       </div>
       <div class="middle">
-        <h3>Psychedelic for Gimp 2.10 and 3.2 </h3>
+        <h3>Psychedelic for Gimp 3.2 - 2.10 </h3>
         <p>It is based on a gradient effect for the background and animated
           brushes for filling the text, the background color of the text and the
           gradients can be changed, it has 3D possibilities<br>
@@ -307,7 +539,7 @@ div.topbar {
             title="Psychedelic" target="_blank">Right click, save link as...</a></p>
       </div>
       <div class="middle">
-        <h3>Irregular Slab for Gimp 2.10 - 3.2</h3>
+        <h3>Irregular Slab for Gimp 3.2 - 2.10</h3>
         <p>Simulates the effect of a piece of broken wood, has many adjustments
           to make the effect more: realistic, backgrounds and colors can be
           changed<br>
@@ -322,7 +554,7 @@ div.topbar {
             title="Irregular Slab" target="_blank">Right click, save link as...</a></p>
       </div>
       <div class="middle">
-        <h3>Double Bumped Text for Gimp 2.10.36 - 3.2</h3>
+        <h3>Double Bumped Text for Gimp 3.2 - 2.10</h3>
         <p>It complements and replaces Double Bump Map by adding text
           possibilities, it has tons of adjustments, it takes time to figure it
           out, it has color overlay pattern effects...don't give up!<br>
@@ -335,7 +567,7 @@ div.topbar {
             as...</a></p>
       </div>
       <div class="middle">
-        <h3>Bumpy for Gimp 2.10 - 3.2</h3>
+        <h3>Bumpy for Gimp 3.2 - 2.10</h3>
         <p>A script classic updated for the new Gimp, has Bump Map effect...
           pushed to the max, colors can be changed<br>
           <br>
@@ -346,8 +578,8 @@ div.topbar {
             title="Bumpy" target="_blank">Right click, save link as...</a></p>
       </div>
       <div class="middle">
-        <h3>Wire Art for Gimp 2.10 - 3.2</h3>
-        <p>A script classic updated for Gimp 2.10 - 3.2 , but renewed and
+        <h3>Wire Art for Gimp 3.2 - 2.10</h3>
+        <p>A script classic updated for Gimp 3.2 - 2.10 , but renewed and
           independent, the mesh is generated by the mosaic filter, and the type
           and size can be changed.<br>
           <br>
@@ -369,7 +601,7 @@ div.topbar {
         </p>
       </div>
       <div class="middle">
-        <h3>Comix Text Bubble for Gimp 2.10 - 3.2</h3>
+        <h3>Comix Text Bubble for Gimp 3.2 - 2.10</h3>
         <p>A script to create Comix Text Bubble in various shapes and types with
           the possibility of changing the position of the comic source<br>
           <br>
@@ -409,7 +641,7 @@ div.topbar {
           Edit&gt; Preferences&gt; Interface&gt; Configure Interface Buttons</p>
       </div>
       <div class="middle">
-        <h3>Furry Logo for Gimp 2.10 - 3.2</h3>
+        <h3>Furry Logo for Gimp 3.2 - 2.10</h3>
         <p>A furry logo can always be useful, you can use two colors, they are
           there many adjustments<br>
           <br>
@@ -443,7 +675,7 @@ div.topbar {
             usingAI</a></p>
       </div>
       <div class="middle">
-        <h3>Alien Neon for Gimp 2.10 - 3.2</h3>
+        <h3>Alien Neon for Gimp 3.2 - 2.10</h3>
         <p>An old logo that is not perfect, the colors can be changed<br>
           <br>
           Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTBlimpo.otf"
@@ -468,7 +700,7 @@ div.topbar {
             title="Furry LOGO" target="_blank">Right click, save link as...</a></p>
       </div>
       <div class="middle">
-        <h3>Imigre Logo for Gimp 2.10 - 3.2</h3>
+        <h3>Imigre Logo for Gimp 3.2 - 2.10</h3>
         <p>A wavy, two-tone logo, brought to the new version of Gimp<br>
           <br>
           Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTSchoolCentury-Bold.otf"
@@ -482,7 +714,7 @@ div.topbar {
         </p>
       </div>
       <div class="middle">
-        <h3>Zahnpasta Plus per Gimp 2.10 - 3.2</h3>
+        <h3>Zahnpasta Plus per Gimp 3.2 - 2.10</h3>
         <p>A brush-outlined logo that uses dynamics to achieve unusual effects<br>
           <br>
           Usa il font OFL <a href="https://ctan.mirror.garr.it/mirrors/ctan/fonts/qualitype/opentype/QTKooper.otf"
@@ -495,7 +727,7 @@ div.topbar {
         </p>
       </div>
       <div class="middle">
-        <h3>Stained Glass Logo for Gimp 2.10 - 3.2</h3>
+        <h3>Stained Glass Logo for Gimp 3.2 - 2.10</h3>
         <p>A traditional stained glass logo, with different options and colors<br>
           <br>
           File&gt; Create&gt; Logos&gt; Stained Glass Logo<br>
@@ -505,7 +737,7 @@ div.topbar {
             as...</a> </p>
       </div>
       <div class="middle">
-        <h3>Dracula! for Gimp 2.10 - 3.2</h3>
+        <h3>Dracula! for Gimp 3.2 - 2.10</h3>
         <p>A scary logo for Halloween, colors can be changed<br>
           <br>
           Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTFraktur.otf"
@@ -518,7 +750,7 @@ div.topbar {
         </p>
       </div>
       <div class="middle">
-        <h3>Rain Drop per Gimp 2.10 - 3.2</h3>
+        <h3>Rain Drop per Gimp 3.2 - 2.10</h3>
         <p>A drops logo, colors and background can be changed<br>
           <br>
           Use font OFL <a href="https://ctan.mirror.garr.it/mirrors/ctan/fonts/qualitype/opentype/QTSlogantype.otf"
@@ -533,7 +765,7 @@ div.topbar {
         </p>
       </div>
       <div class="middle">
-        <h3>Sweet Candy Logo for Gimp 2.10 - 3.2</h3>
+        <h3>Sweet Candy Logo for Gimp 3.2 - 2.10</h3>
         <p>A logo that recreates the effect of Christmas sweets<br>
           <br>
           File&gt; Create&gt; Logos&gt; Sweet candy text <br>
@@ -544,7 +776,7 @@ div.topbar {
             as...</a> </p>
       </div>
       <div class="middle">
-        <h3>Snow cover for for Gimp 2.10 - 3.2</h3>
+        <h3>Snow cover for for Gimp 3.2 - 2.10</h3>
         <p>A logo, or alpha, covered in snow<br>
           <br>
           Script-Fu&gt; Logos&gt; Snow Cover Logo 300<br>
@@ -556,7 +788,7 @@ div.topbar {
             as...</a> </p>
       </div>
       <div class="middle">
-        <h3>Wrought Iron for Gimp 2.10 - 3.2</h3>
+        <h3>Wrought Iron for Gimp 3.2 - 2.10</h3>
         <p>A burnished metal effect logo, with optional frame, colors can be
           changed<br>
           <br>
@@ -572,7 +804,7 @@ div.topbar {
             as...</a> </p>
       </div>
       <div class="middle">
-        <h3>Glossy Galaxy for Gimp 2.10 - 3.2</h3>
+        <h3>Glossy Galaxy for Gimp 3.2 - 2.10</h3>
         <p>An old classic updated for Gimp 3.2 - 2.10<br>
           <br>
           Use font OFL <a href="https://mirrors.ctan.org/fonts/qualitype/opentype/QTEraType.otf"
@@ -587,7 +819,7 @@ div.topbar {
             link as...</a> </p>
       </div>
       <div class="middle">
-        <h3>Glossy Metal 3D for Gimp 2.10 - 3.2</h3>
+        <h3>Glossy Metal 3D for Gimp 3.2 - 2.10</h3>
         <p>Script-fu created by Samj from a tutorial by Monsoonami<br>
           <br>
           Use font <a href="https://raw.githubusercontent.com/VCF5/2018-2019-Top-Network-System-Fonts/refs/heads/master/Walkway/Walkway%20Bold.ttf"
@@ -601,7 +833,7 @@ div.topbar {
             as...</a> </p>
       </div>
       <div class="middle">
-        <h3>yaChrome for Gimp 2.10 - 3.2</h3>
+        <h3>yaChrome for Gimp 3.2 - 2.10</h3>
         <p>The newest and most complicated release of yaChrome, an enhanced
           version of Shiny Chrome<br>
           <br>
@@ -617,8 +849,8 @@ div.topbar {
         </p>
       </div>
       <div class="middle">
-        <h3>Egg melt for Gimp 2.10 - 3.2</h3>
-        <p>The famous fried egg for Gimp 2.10 - 3.2<br>
+        <h3>Egg melt for Gimp 3.2 - 2.10</h3>
+        <p>The famous fried egg for Gimp 3.2 - 2.10<br>
           <br>
           File&gt; Create&gt; Text&gt; Egg Melt <br>
           <img src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/egg-melt-logo-gimp-2.10-3.0.jpg"
@@ -639,7 +871,7 @@ div.topbar {
             click, save link as...</a> </p>
       </div>
       <div class="middle">
-        <h3>Pijama Logo for Gimp 2.10 -3.2</h3>
+        <h3>Pijama Logo for Gimp 3.2 - 2.10</h3>
         <p>The newest and most complicated version of Pijama logo with more
           color choices<br>
           <br>
@@ -651,7 +883,7 @@ div.topbar {
         </p>
       </div>
       <div class="middle">
-        <h3>HighLighted Logo for Gimp 2.10 - 3.2</h3>
+        <h3>HighLighted Logo for Gimp 3.2 - 2.10</h3>
         <p>A simple style with the same light reflections as Emap for Gimp 3.0
           rc1 - 2.10<br>
           <br>
@@ -660,13 +892,13 @@ div.topbar {
           <br>
           File&gt; Create&gt; Text&gt; HighLighted LOGO 300<br>
           <img src="https://raw.githubusercontent.com/vitforlinux-gimp/vitforlinux-gimp.github.io/master/images/highlighted-logo-gimp-2.10-2.99.19.jpg"
-            loading="lazy" alt="HighLighted LOGO 300"><br>
+             loading="lazy" alt="HighLighted LOGO 300"><br>
           <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/highlighted-logo-300.scm"
             title="HighLighted LOGO 300" target="_blank">Right click, save link
             as...</a> </p>
       </div>
       <div class="middle">
-        <h3>Ocean Text for Gimp 2.10 - 3.2</h3>
+        <h3>Ocean Text for Gimp 3.2 - 2.10</h3>
         <p>The return of an old classic: text with waves made with a gradient<br>
           <br>
           File&gt; Create&gt; Logos&gt; Ocean Text 300 Logo<br>
@@ -677,7 +909,7 @@ div.topbar {
         </p>
       </div>
       <div class="middle">
-        <h3>MH 3d Bevel Logo for Gimp 2.10 - 3.2</h3>
+        <h3>MH 3d Bevel Logo for Gimp 3.2 - 2.10</h3>
         <p>A cheerful 3D script with gradient color options<br>
           <br>
           Script-Fu&gt; Logos&gt; MH 3d Bevel LOGO 300<br>
@@ -687,23 +919,67 @@ div.topbar {
           <a href="https://raw.githubusercontent.com/vitforlinux-gimp/scm/main/300_mhbevel3d.scm"
             title="MH 3d Bevel Logo" target="_blank">Right click, save link
             as...</a> </p>
-      </div>
-    </div>
+      </div></div>
     <script>
-        function searchContent() {
-            // Prende il valore della ricerca e lo converte in minuscolo
-            let input = document.getElementById('searchBar').value.toLowerCase();
-            let items = document.getElementsByClassName('middle');
+  // Search function as provided
+  function searchContent() {
+    let input = document.getElementById('searchBar').value.toLowerCase();
+    let items = document.getElementsByClassName('middle');
+    for (let i = 0; i < items.length; i++) {
+      if(items[i].innerText.toLowerCase().includes(input)){
+        items[i].classList.remove('hidden');
+      } else {
+        items[i].classList.add('hidden');
+      }
+    }
+  }
 
-            for (let i = 0; i < items.length; i++) {
-                // Controlla se il testo dell'elemento contiene la stringa cercata
-                if (items[i].innerText.toLowerCase().includes(input)) {
-                    items[i].classList.remove('hidden'); // Mostra
-                } else {
-                    items[i].classList.add('hidden'); // Nasconde
-                }
-            }
-        }
-    </script>
+  (function(){
+    const navbar = document.getElementById('navbar');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const dropdown = document.getElementById('dropdown-menu');
+
+    // Navbar scaling on scroll
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if(!ticking) {
+        window.requestAnimationFrame(() => {
+          if(window.scrollY > 20){
+            navbar.classList.add('shrink');
+          } else {
+            navbar.classList.remove('shrink');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Toggle dropdown
+    menuToggle.addEventListener('click', () => {
+      const isOpen = dropdown.classList.toggle('open');
+      menuToggle.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', isOpen);
+      dropdown.setAttribute('aria-hidden', !isOpen);
+
+      // Manage tabIndex for accessibility
+      dropdown.querySelectorAll('a').forEach(link => link.tabIndex = isOpen ? 0 : -1);
+    });
+
+    // Close dropdown on link click
+    dropdown.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        dropdown.classList.remove('open');
+        menuToggle.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', false);
+        dropdown.setAttribute('aria-hidden', true);
+        dropdown.querySelectorAll('a').forEach(link => link.tabIndex = -1);
+      });
+    });
+
+    // Initialize tabIndex off
+    dropdown.querySelectorAll('a').forEach(link => link.tabIndex = -1);
+  })();
+</script>
   </body>
 </html>
