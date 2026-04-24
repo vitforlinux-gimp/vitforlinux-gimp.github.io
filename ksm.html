@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Fira Code (scelta migliore) -->
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>K S M</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            padding: 20px;
+        }
+    body, input, textarea, select {
+        font-family: 'Fira Code', 'JetBrains Mono', 'Source Code Pro', monospace;
+    } 
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #e94560;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #16213e;
+            border-radius: 10px;
+        }
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .toolbar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .btn-nuovo { background: #0f3460; color: white; }
+        .btn-carica { background: #533483; color: white; }
+        .btn-salva { background: #e94560; color: white; }
+        .btn-esporta { background: #16213e; color: white; border: 1px solid #e94560 !important; }
+        .btn-copia { background: #0f3460; color: white; }
+        .toolbar button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.2);
+        }
+        .ricerca-wrapper {
+            flex: 1;
+            min-width: 200px;
+        }
+        .ricerca-wrapper input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #533483;
+            border-radius: 5px;
+            background: #0f3460;
+            color: white;
+            font-size: 14px;
+        }
+        .ricerca-wrapper input:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: #16213e;
+            padding: 15px 25px;
+            border-radius: 8px;
+            border-left: 4px solid #e94560;
+            flex: 1;
+            min-width: 150px;
+        }
+        .stat-card h3 { font-size: 12px; color: #888; margin-bottom: 5px; }
+        .stat-card .numero { font-size: 24px; font-weight: bold; color: #e94560; }
+        .tabella-wrapper {
+            overflow-x: auto;
+            background: #16213e;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1100px;
+        }
+        th {
+            background: #0f3460;
+            color: #e94560;
+            padding: 12px 8px;
+            text-align: left;
+            font-size: 13px;
+            white-space: nowrap;
+            border-bottom: 2px solid #e94560;
+            position: sticky;
+            top: 0;
+        }
+        td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #1a1a2e;
+            font-size: 12px;
+            vertical-align: top;
+        }
+        tr:hover { background: rgba(233, 69, 96, 0.1); }
+        input, select, textarea {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #533483;
+            border-radius: 4px;
+            background: #0f3460;
+            color: white;
+            font-size: 12px;
+        }
+        input:focus, select:focus, textarea:focus { outline: 2px solid #e94560; border-color: transparent; }
+        textarea.descrizione-cell {
+            resize: vertical;
+            min-height: 40px;
+            max-height: 120px;
+            font-size: 11px;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+        textarea.descrizione-cell:focus {
+            border-color: #e94560;
+            background: #0f3460;
+        }
+        .password-wrapper { display: flex; gap: 3px; }
+        .password-wrapper input { flex: 1; }
+        .password-wrapper button {
+            padding: 4px 8px;
+            cursor: pointer;
+            background: #533483;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 12px;
+        }
+        .azioni { display: flex; gap: 3px; justify-content: center; }
+        .azioni button {
+            padding: 4px 8px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        .btn-elimina { background: #dc3545; color: white; }
+        .salvato-badge {
+            background: #2e7d32;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            display: inline-block;
+        }
+        .backup-info {
+            text-align: center;
+            color: #666;
+            font-size: 11px;
+            margin-top: 15px;
+            padding: 10px;
+            background: #16213e;
+            border-radius: 5px;
+        }
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            th, td { font-size: 11px; padding: 4px; }
+            .toolbar { flex-direction: column; }
+            .toolbar button { width: 100%; }
+            .ricerca-wrapper { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖥️ K S M</h1>
+        
+        <div class="toolbar">
+            <button class="btn-nuovo" onclick="nuovoServer()">➕ Nuovo</button>
+            <button class="btn-carica" onclick="caricaFile()">📂 Carica JSON</button>
+            <button class="btn-salva" onclick="esportaJSON()">💾 Scarica JSON</button>
+            <button class="btn-esporta" onclick="esportaCSV()">📊 Esporta CSV</button>
+            <button class="btn-copia" onclick="copiaBackup()">📋 Copia</button>
+            
+            <div class="ricerca-wrapper">
+                <input type="text" id="campoRicerca" placeholder="🔍 Cerca..." oninput="filtraTabella()">
+            </div>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Totale</h3>
+                <div class="numero" id="totale">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Online</h3>
+                <div class="numero" id="online">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Offline</h3>
+                <div class="numero" id="offline">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Visibili</h3>
+                <div class="numero" id="visibili">0</div>
+            </div>
+        </div>
+        
+        <div class="tabella-wrapper">
+            <table id="tabellaServer">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>IP</th>
+                        <th>Porta</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Tipo</th>
+                        <th>Stato</th>
+                        <th style="min-width:180px;">Descrizione</th>
+                        <th>Modifica</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoTabella"></tbody>
+            </table>
+        </div>
+        
+        <div class="backup-info">
+            💾 Dati salvati automaticamente nel browser | Le descrizioni si modificano direttamente nella tabella
+        </div>
+    </div>
+
+    <input type="file" id="fileInput" accept=".json" style="display:none">
+
+    <script>
+        let dati = { server: [] };
+        let nextId = 1;
+        
+        // Inizializzazione
+        function init() {
+            caricaDatiIniziali();
+            aggiornaTabella();
+        }
+        
+        // Carica dati da localStorage o esempio
+        function caricaDatiIniziali() {
+            const salvato = localStorage.getItem('serverManagerDati');
+            if (salvato) {
+                try {
+                    const datiCaricati = JSON.parse(salvato);
+                    if (datiCaricati.server && datiCaricati.server.length > 0) {
+                        dati = datiCaricati;
+                        nextId = dati.server.length > 0 ? Math.max(...dati.server.map(s => s.id)) + 1 : 1;
+                        return;
+                    }
+                } catch (e) {}
+            }
+            dati.server = [
+                { id: 1, nome: "Web Server", ip: "192.168.1.10", porta: 443, username: "admin", password: "Pass123!", tipo: "Web", stato: "Online", descrizione: "Server principale per il sito aziendale. Ultimo deploy: 15/01/2024", ultimaModifica: new Date().toISOString() },
+                { id: 2, nome: "Database MySQL", ip: "10.0.0.50", porta: 3306, username: "root", password: "DbPass456#", tipo: "Database", stato: "Online", descrizione: "Database principale. Backup notturno alle 02:00", ultimaModifica: new Date().toISOString() },
+                { id: 3, nome: "FTP Storage", ip: "192.168.2.20", porta: 21, username: "ftpuser", password: "FtpPass789$", tipo: "FTP", stato: "Offline", descrizione: "Server FTP per backup. Manutenzione programmata", ultimaModifica: new Date().toISOString() }
+            ];
+            nextId = 4;
+            salvaLocale();
+        }
+        
+        // Salva automaticamente in localStorage
+        function salvaLocale() {
+            try {
+                localStorage.setItem('serverManagerDati', JSON.stringify(dati));
+            } catch (e) {}
+        }
+        
+        // Nuovo server
+        function nuovoServer() {
+            const server = {
+                id: nextId++,
+                nome: "Nuovo Server",
+                ip: "0.0.0.0",
+                porta: 80,
+                username: "admin",
+                password: "",
+                tipo: "Web",
+                stato: "Offline",
+                descrizione: "",
+                ultimaModifica: new Date().toISOString()
+            };
+            dati.server.push(server);
+            aggiornaTabella();
+            salvaLocale();
+        }
+        
+        // Carica file JSON
+        function caricaFile() {
+            document.getElementById('fileInput').click();
+        }
+        
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const datiCaricati = JSON.parse(e.target.result);
+                    if (datiCaricati.server && Array.isArray(datiCaricati.server)) {
+                        dati = datiCaricati;
+                        nextId = dati.server.length > 0 ? Math.max(...dati.server.map(s => s.id)) + 1 : 1;
+                        aggiornaTabella();
+                        salvaLocale();
+                    } else {
+                        alert("❌ Formato JSON non valido");
+                    }
+                } catch (error) {
+                    alert("❌ Errore: " + error.message);
+                }
+            };
+            reader.readAsText(file);
+            e.target.value = '';
+        });
+        
+        // Esporta JSON
+        function esportaJSON() {
+            const blob = new Blob([JSON.stringify(dati, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'server_backup.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // Copia backup
+        function copiaBackup() {
+            navigator.clipboard.writeText(JSON.stringify(dati, null, 2)).then(() => {
+                alert("✅ Backup copiato!");
+            }).catch(() => alert("❌ Errore"));
+        }
+        
+        // Esporta CSV
+        function esportaCSV() {
+            let csv = "ID,Nome,IP,Porta,Username,Password,Tipo,Stato,Descrizione,Ultima Modifica\n";
+            dati.server.forEach(s => {
+                const desc = (s.descrizione || '').replace(/"/g, '""').replace(/\n/g, ' ');
+                csv += `"${s.id}","${s.nome}","${s.ip}","${s.porta}","${s.username}","${s.password}","${s.tipo}","${s.stato}","${desc}","${s.ultimaModifica}"\n`;
+            });
+            const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'server_export.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // Filtra tabella
+        function filtraTabella() {
+            const ricerca = document.getElementById('campoRicerca').value.toLowerCase();
+            const righe = document.querySelectorAll('#corpoTabella tr');
+            let visibili = 0;
+            righe.forEach((riga, index) => {
+                const server = dati.server[index];
+                if (!server) { riga.style.display = 'none'; return; }
+                let mostra = true;
+                if (ricerca) {
+                    const testoCompleto = `${server.nome} ${server.ip} ${server.descrizione || ''} ${server.username}`.toLowerCase();
+                    if (!testoCompleto.includes(ricerca)) mostra = false;
+                }
+                riga.style.display = mostra ? '' : 'none';
+                if (mostra) visibili++;
+            });
+            document.getElementById('visibili').textContent = visibili;
+        }
+        
+        // Aggiorna tabella
+        function aggiornaTabella() {
+            const tbody = document.getElementById('corpoTabella');
+            tbody.innerHTML = '';
+            
+            dati.server.forEach((server, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td><input type="text" value="${server.nome.replace(/"/g, '&quot;')}" onchange="modifica(${server.id}, 'nome', this.value)"></td>
+                    <td><input type="text" value="${server.ip}" onchange="modifica(${server.id}, 'ip', this.value)"></td>
+                    <td><input type="number" value="${server.porta}" onchange="modifica(${server.id}, 'porta', this.value)" min="1" max="65535"></td>
+                    <td><input type="text" value="${server.username}" onchange="modifica(${server.id}, 'username', this.value)"></td>
+                    <td>
+                        <div class="password-wrapper">
+                            <input type="${vistaPassword[server.id] ? 'text' : 'password'}" 
+                                   value="${server.password}" 
+                                   onchange="modifica(${server.id}, 'password', this.value)">
+                            <button onclick="togglePassword(${server.id})">👁️</button>
+                            <button onclick="copiaPassword(${server.id})">📋</button>
+                        </div>
+                    </td>
+                    <td>
+                        <select onchange="modifica(${server.id}, 'tipo', this.value)">
+                            <option value="Web" ${server.tipo === 'Web' ? 'selected' : ''}>Web</option>
+                            <option value="Database" ${server.tipo === 'Database' ? 'selected' : ''}>Database</option>
+                            <option value="FTP" ${server.tipo === 'FTP' ? 'selected' : ''}>FTP</option>
+                            <option value="DNS" ${server.tipo === 'DNS' ? 'selected' : ''}>DNS</option>
+                            <option value="Mail" ${server.tipo === 'Mail' ? 'selected' : ''}>Mail</option>
+                            <option value="Altro" ${server.tipo === 'Altro' ? 'selected' : ''}>Altro</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select onchange="modifica(${server.id}, 'stato', this.value)" 
+                                style="background: ${server.stato === 'Online' ? '#1b5e20' : server.stato === 'Offline' ? '#b71c1c' : '#f57f17'}; color: white; font-weight: bold;">
+                            <option value="Online" ${server.stato === 'Online' ? 'selected' : ''}>🟢 Online</option>
+                            <option value="Offline" ${server.stato === 'Offline' ? 'selected' : ''}>🔴 Offline</option>
+                            <option value="Manutenzione" ${server.stato === 'Manutenzione' ? 'selected' : ''}>🟡 Manutenzione</option>
+                        </select>
+                    </td>
+                    <td>
+                        <textarea class="descrizione-cell" 
+                                  placeholder="Note, configurazioni, informazioni..." 
+                                  onchange="modifica(${server.id}, 'descrizione', this.value)">${server.descrizione || ''}</textarea>
+                    </td>
+                    <td><small style="color: #888;">${formattaData(server.ultimaModifica)}</small></td>
+                    <td>
+                        <div class="azioni">
+                            <button class="btn-elimina" onclick="eliminaServer(${server.id})" title="Elimina">🗑️</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            
+            aggiornaStatistiche();
+            filtraTabella();
+        }
+        
+        // Modifica e salva automaticamente
+        function modifica(id, campo, valore) {
+            const server = dati.server.find(s => s.id === id);
+            if (server) {
+                server[campo] = valore;
+                server.ultimaModifica = new Date().toISOString();
+                aggiornaStatistiche();
+                salvaLocale();
+            }
+        }
+        
+        // Stato password
+        const vistaPassword = {};
+        function togglePassword(id) {
+            vistaPassword[id] = !vistaPassword[id];
+            aggiornaTabella();
+        }
+        function copiaPassword(id) {
+            const server = dati.server.find(s => s.id === id);
+            if (server) {
+                navigator.clipboard.writeText(server.password).then(() => alert("✅ Password copiata!"));
+            }
+        }
+        
+        // Elimina server
+        function eliminaServer(id) {
+            const server = dati.server.find(s => s.id === id);
+            if (confirm(`❓ Eliminare "${server ? server.nome : id}"?`)) {
+                dati.server = dati.server.filter(s => s.id !== id);
+                aggiornaTabella();
+                salvaLocale();
+            }
+        }
+        
+        // Statistiche
+        function aggiornaStatistiche() {
+            document.getElementById('totale').textContent = dati.server.length;
+            document.getElementById('online').textContent = dati.server.filter(s => s.stato === 'Online').length;
+            document.getElementById('offline').textContent = dati.server.filter(s => s.stato === 'Offline').length;
+        }
+        
+        // Formatta data
+        function formattaData(dataISO) {
+            if (!dataISO) return '-';
+            return new Date(dataISO).toLocaleDateString('it-IT', {
+                day: '2-digit', month: '2-digit', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+        }
+        
+        window.onload = init;
+    </script>
+</body>
+</html>
