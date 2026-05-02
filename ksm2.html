@@ -181,8 +181,10 @@
             body { padding: 10px; }
             th, td { font-size: 11px; padding: 4px; }
             .toolbar { flex-direction: row; }
+	    .ipwrp { width: 150px; }
+	    .password-wrapper { width: 200px; }
             .toolbar button { width: 48%; }
-            .ricerca-wrapper { width: 48%; }
+            .ricerca-wrapper { width: 44%; margin: 2px; }
         }
     </style>
 </head>
@@ -399,7 +401,7 @@
                 tr.innerHTML = `
                     <td>${index + 1}</td>
                     <td><input type="text" value="${server.nome.replace(/"/g, '&quot;')}" onchange="modifica(${server.id}, 'nome', this.value)"></td>
-                    <td><input type="text" value="${server.ip}" onchange="modifica(${server.id}, 'ip', this.value)"></td>
+                    <td class="ipwrp"><input type="text" value="${server.ip}" onchange="modifica(${server.id}, 'ip', this.value)"></td>
                     <td><input type="number" value="${server.porta}" onchange="modifica(${server.id}, 'porta', this.value)" min="1" max="65535"></td>
                     <td><input type="text" value="${server.username}" onchange="modifica(${server.id}, 'username', this.value)"></td>
                     <td>
