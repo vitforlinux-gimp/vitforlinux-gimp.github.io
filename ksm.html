@@ -23,15 +23,15 @@
         h1 {
             text-align: center;
             color: #e94560;
-            margin-bottom: 20px;
-            padding: 15px;
+            margin-bottom: 10px;
+            padding: 10px;
             background: #16213e;
-            border-radius: 10px;
+            border-radius: 6px;
         }
         .toolbar {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             flex-wrap: wrap;
             align-items: center;
         }
@@ -78,11 +78,11 @@
         }
         .stat-card {
             background: #16213e;
-            padding: 15px 25px;
-            border-radius: 8px;
+            padding: 15px 15px;
+            border-radius: 4px;
             border-left: 4px solid #e94560;
             flex: 1;
-            min-width: 150px;
+            min-width: 100px;
         }
         .stat-card h3 { font-size: 12px; color: #888; margin-bottom: 5px; }
         .stat-card .numero { font-size: 24px; font-weight: bold; color: #e94560; }
@@ -112,7 +112,7 @@
             top: 0;
         }
         td {
-            padding: 6px 8px;
+            padding: 3px 3px;
             border-bottom: 1px solid #1a1a2e;
             font-size: 12px;
             vertical-align: top;
@@ -120,9 +120,9 @@
         tr:hover { background: rgba(233, 69, 96, 0.1); }
         input, select, textarea {
             width: 100%;
-            padding: 6px 8px;
+            padding: 3px 3px;
             border: 1px solid #533483;
-            border-radius: 4px;
+            border-radius: 2px;
             background: #0f3460;
             color: white;
             font-size: 12px;
@@ -143,7 +143,7 @@
         .password-wrapper { display: flex; gap: 3px; }
         .password-wrapper input { flex: 1; }
         .password-wrapper button {
-            padding: 4px 8px;
+            padding: 3px 3px;
             cursor: pointer;
             background: #533483;
             border: none;
@@ -153,7 +153,7 @@
         }
         .azioni { display: flex; gap: 3px; justify-content: center; }
         .azioni button {
-            padding: 4px 8px;
+            padding: 3px 3px;
             cursor: pointer;
             border: none;
             border-radius: 4px;
@@ -180,9 +180,11 @@
         @media (max-width: 768px) {
             body { padding: 10px; }
             th, td { font-size: 11px; padding: 4px; }
-            .toolbar { flex-direction: column; }
-            .toolbar button { width: 100%; }
-            .ricerca-wrapper { width: 100%; }
+            .toolbar { flex-direction: row; }
+	    .ipwrp { width: 150px; }
+	    .password-wrapper { width: 200px; }
+            .toolbar button { width: 48%; }
+            .ricerca-wrapper { width: 44%; margin: 2px; }
         }
     </style>
 </head>
@@ -399,7 +401,7 @@
                 tr.innerHTML = `
                     <td>${index + 1}</td>
                     <td><input type="text" value="${server.nome.replace(/"/g, '&quot;')}" onchange="modifica(${server.id}, 'nome', this.value)"></td>
-                    <td><input type="text" value="${server.ip}" onchange="modifica(${server.id}, 'ip', this.value)"></td>
+                    <td class="ipwrp"><input type="text" value="${server.ip}" onchange="modifica(${server.id}, 'ip', this.value)"></td>
                     <td><input type="number" value="${server.porta}" onchange="modifica(${server.id}, 'porta', this.value)" min="1" max="65535"></td>
                     <td><input type="text" value="${server.username}" onchange="modifica(${server.id}, 'username', this.value)"></td>
                     <td>
