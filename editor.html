@@ -632,56 +632,56 @@ body.mode-slides .block[data-block="image-text"] {
     const PLACEHOLDER_IMG = 'data:image/svg+xml;utf8,' + encodeURIComponent(
       '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">' +
       '<rect width="800" height="500" fill="#e9e9ee"/>' +
-      '<text x="400" y="250" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system, sans-serif" font-size="20" fill="#999">Click to replace image</text>' +
-      '</svg>'
+      '<text x="400" y="250" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system, sans-serif" font-size="20" fill="#999">Click to replace image<\/text>' +
+      '<\/svg>'
     );
 
     /* === TEMPLATES === */
     const templates = {
       hero: () => `<section class="block" data-block="hero">
-        <h1 data-edit>New title</h1>
-        <p data-edit>Subtitle goes here</p>
-      </section>`,
+        <h1 data-edit>New title<\/h1>
+        <p data-edit>Subtitle goes here<\/p>
+      <\/section>`,
       heading: () => `<section class="block" data-block="heading">
-        <h2 data-edit>Section heading</h2>
-        <p data-edit>Optional lead paragraph that introduces this section.</p>
-      </section>`,
+        <h2 data-edit>Section heading<\/h2>
+        <p data-edit>Optional lead paragraph that introduces this section.<\/p>
+      <\/section>`,
       text: () => `<section class="block" data-block="text">
-        <p data-edit>Write your paragraph here. Edit freely — text wraps and stays readable up to a comfortable measure.</p>
-      </section>`,
+        <p data-edit>Write your paragraph here. Edit freely — text wraps and stays readable up to a comfortable measure.<\/p>
+      <\/section>`,
       'two-col': () => `<section class="block" data-block="two-col">
-        <div data-edit>Left column. Use this for comparisons, before/after, or two parallel ideas.</div>
-        <div data-edit>Right column. Each side is independently editable.</div>
-      </section>`,
+        <div data-edit>Left column. Use this for comparisons, before/after, or two parallel ideas.<\/div>
+        <div data-edit>Right column. Each side is independently editable.<\/div>
+      <\/section>`,
       'image-text': () => `<section class="block" data-block="image-text">
         <img loading="lazy" src="${PLACEHOLDER_IMG}" alt="Click to replace">
         <div>
-          <h3 data-edit>Block title</h3>
-          <p data-edit>Describe what the image shows or use this space for a related thought.</p>
-        </div>
-      </section>`,
+          <h3 data-edit>Block title<\/h3>
+          <p data-edit>Describe what the image shows or use this space for a related thought.<\/p>
+        <\/div>
+      <\/section>`,
       'image-big': () => `<section class="block" data-block="image-big">
         <img loading="lazy" src="${PLACEHOLDER_IMG}" alt="Click to replace">
         <div>
-          <p data-edit>Describe what the image shows or use this space for a related thought.</p>
-        </div>
-      </section>`,
+          <p data-edit>Describe what the image shows or use this space for a related thought.<\/p>
+        <\/div>
+      <\/section>`,
       'bullet-list': () => `<section class="block" data-block="bullet-list">
-        <h3 data-edit>List title</h3>
+        <h3 data-edit>List title<\/h3>
         <ul data-edit>
-          <li>First item</li>
-          <li>Second item</li>
-          <li>Third item</li>
-        </ul>
-      </section>`,
+          <li>First item<\/li>
+          <li>Second item<\/li>
+          <li>Third item<\/li>
+        <\/ul>
+      <\/section>`,
       quote: () => `<section class="block" data-block="quote">
-        <blockquote data-edit>"A short, memorable quote that anchors a section."</blockquote>
-        <cite data-edit>— Author Name</cite>
-      </section>`,
+        <blockquote data-edit>"A short, memorable quote that anchors a section."<\/blockquote>
+        <cite data-edit>— Author Name<\/cite>
+      <\/section>`,
       code: () => `<section class="block" data-block="code">
         <pre data-edit>const message = "Hello, world!";
-console.log(message);</pre>
-      </section>`,
+console.log(message);<\/pre>
+      <\/section>`,
     };
 
     const templateMeta = {
@@ -712,25 +712,39 @@ console.log(message);</pre>
       tb.dataset.editorUi = 'toolbar';
       tb.innerHTML = `
         <button class="tb-btn" data-action="toggle-edit" title="Toggle edit mode (E)">
-          <span class="tb-icon">✎</span><span class="tb-label">Edit</span>
-        </button>
+          <span class="tb-icon">✎<\/span><span class="tb-label">Edit<\/span>
+        <\/button>
         <button class="tb-btn" data-action="toggle-mode" title="Toggle slides mode (S)">
-          <span class="tb-icon">⇆</span><span class="tb-label">Doc</span>
-        </button>
-        <div class="tb-sep"></div>
-        <button class="tb-btn tb-icon-btn" data-action="cycle-theme" title="Cycle theme">☀</button>
-        <button class="tb-btn tb-icon-btn" data-action="cycle-palette" title="Cycle palette">◐</button>
-        <div class="tb-sep"></div>
+          <span class="tb-icon">⇆<\/span><span class="tb-label">Doc<\/span>
+        <\/button>
+        <div class="tb-sep"><\/div>
+	<button class="tb-btn tb-icon-btn" data-action="insert-link" title="Insert link">
+	🔗
+	<\/button>
+	<button class="tb-btn tb-icon-btn" data-action="remove-link" title="Remove link">
+	⛓̸
+	<\/button>
+	<div class="tb-sep"><\/div>
+        <button class="tb-btn tb-icon-btn" data-action="cycle-theme" title="Cycle theme">☀<\/button>
+        <button class="tb-btn tb-icon-btn" data-action="cycle-palette" title="Cycle palette">◐<\/button>
+        <div class="tb-sep"><\/div>
         <button class="tb-btn" data-action="save" title="Save (Cmd+S)">
-          <span class="tb-icon">↓</span><span class="tb-label">Save</span>
-        </button>
+          <span class="tb-icon">↓<\/span><span class="tb-label">Save<\/span>
+        <\/button>
         <button class="tb-btn" data-action="export-pdf" title="Print to PDF (Cmd+P)">
-          <span class="tb-icon">⎙</span><span class="tb-label">PDF</span>
-        </button>
-        <div class="tb-sep"></div>
-        <span class="tb-status" id="save-status">Ready</span>
-        <button class="tb-btn tb-icon-btn" data-action="help" title="Keyboard shortcuts (?)">?</button>
+          <span class="tb-icon">⎙<\/span><span class="tb-label">PDF<\/span>
+        <\/button>
+        <div class="tb-sep"><\/div>
+        <span class="tb-status" id="save-status">Ready<\/span>
+        <button class="tb-btn tb-icon-btn" data-action="help" title="Keyboard shortcuts (?)">?<\/button>
       `;
+      
+tb.addEventListener('mousedown', (e) => {
+  if (e.target.closest('[data-action="insert-link"], [data-action="remove-link"]')) {
+    e.preventDefault();
+  }
+});
+
       tb.addEventListener('click', (e) => {
         const btn = e.target.closest('[data-action]');
         if (!btn) return;
@@ -772,18 +786,18 @@ console.log(message);</pre>
 
     /* === BLOCK UI === */
     function buildInsertButton(beforeBlock) {
-      const btn = el(`<div class="insert-button" data-editor-ui="insert"><div class="insert-button-icon">+</div></div>`);
+      const btn = el(`<div class="insert-button" data-editor-ui="insert"><div class="insert-button-icon">+<\/div><\/div>`);
       btn.addEventListener('click', () => openTemplatePicker(beforeBlock));
       return btn;
     }
 
     function buildBlockControls() {
       const wrap = el(`<div class="block-controls" data-editor-ui="controls">
-        <button class="bc-btn" data-bc="up" title="Move up">↑</button>
-        <button class="bc-btn" data-bc="down" title="Move down">↓</button>
-        <button class="bc-btn" data-bc="duplicate" title="Duplicate">⎘</button>
-        <button class="bc-btn is-danger" data-bc="delete" title="Delete">×</button>
-      </div>`);
+        <button class="bc-btn" data-bc="up" title="Move up">↑<\/button>
+        <button class="bc-btn" data-bc="down" title="Move down">↓<\/button>
+        <button class="bc-btn" data-bc="duplicate" title="Duplicate">⎘<\/button>
+        <button class="bc-btn is-danger" data-bc="delete" title="Delete">×<\/button>
+      <\/div>`);
       wrap.addEventListener('click', (e) => {
         const btn = e.target.closest('[data-bc]');
         if (!btn) return;
@@ -862,9 +876,9 @@ const blockOps = {
       let toast = $('#undo-toast');
       if (toast) toast.remove();
       toast = el(`<div id="undo-toast" data-editor-ui="toast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:1500;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadow-md);font-size:13px;display:flex;align-items:center;gap:12px">
-        <span>Block deleted</span>
-        <button class="tb-btn" style="padding:4px 10px;background:var(--accent);color:#fff;border-radius:6px">Undo</button>
-      </div>`);
+        <span>Block deleted<\/span>
+        <button class="tb-btn" style="padding:4px 10px;background:var(--accent);color:#fff;border-radius:6px">Undo<\/button>
+      <\/div>`);
       toast.querySelector('button').addEventListener('click', () => {
         const last = state.undoStack.pop();
         if (!last) return;
@@ -887,18 +901,18 @@ const blockOps = {
     function openTemplatePicker(beforeBlock) {
       const backdrop = el(`<div class="modal-backdrop" data-editor-ui="modal">
         <div class="modal" style="position:relative">
-          <button class="modal-close" data-close>×</button>
-          <h3>Insert block</h3>
-          <div class="template-grid"></div>
-        </div>
-      </div>`);
+          <button class="modal-close" data-close>×<\/button>
+          <h3>Insert block<\/h3>
+          <div class="template-grid"><\/div>
+        <\/div>
+      <\/div>`);
       const grid = backdrop.querySelector('.template-grid');
       Object.entries(templateMeta).forEach(([key, meta]) => {
         const card = el(`<button class="template-card" data-tpl="${key}">
-          <div class="template-card-preview">${meta.preview}</div>
-          <div class="template-card-name">${meta.name}</div>
-          <div class="template-card-desc">${meta.desc}</div>
-        </button>`);
+          <div class="template-card-preview">${meta.preview}<\/div>
+          <div class="template-card-name">${meta.name}<\/div>
+          <div class="template-card-desc">${meta.desc}<\/div>
+        <\/button>`);
         card.addEventListener('click', () => {
           const newBlock = el(templates[key]());
           const content = $('#content');
@@ -925,19 +939,19 @@ const blockOps = {
     function openHelp() {
       const backdrop = el(`<div class="modal-backdrop" data-editor-ui="modal">
         <div class="modal" style="position:relative;max-width:500px">
-          <button class="modal-close" data-close>×</button>
-          <h3>Keyboard shortcuts</h3>
+          <button class="modal-close" data-close>×<\/button>
+          <h3>Keyboard shortcuts<\/h3>
           <dl class="shortcuts-list">
-            <dt>E</dt><dd>Toggle edit / preview</dd>
-            <dt>S</dt><dd>Toggle slides mode</dd>
-            <dt>Cmd+S</dt><dd>Save file</dd>
-            <dt>Cmd+P</dt><dd>Print / export PDF</dd>
-            <dt>← →</dt><dd>Navigate slides (in slides mode)</dd>
-            <dt>?</dt><dd>This help</dd>
-            <dt>Esc</dt><dd>Close dialogs</dd>
-          </dl>
-        </div>
-      </div>`);
+            <dt>E<\/dt><dd>Toggle edit / preview<\/dd>
+            <dt>S<\/dt><dd>Toggle slides mode<\/dd>
+            <dt>Cmd+S<\/dt><dd>Save file<\/dd>
+            <dt>Cmd+P<\/dt><dd>Print / export PDF<\/dd>
+            <dt>← →<\/dt><dd>Navigate slides (in slides mode)<\/dd>
+            <dt>?<\/dt><dd>This help<\/dd>
+            <dt>Esc<\/dt><dd>Close dialogs<\/dd>
+          <\/dl>
+        <\/div>
+      <\/div>`);
       backdrop.addEventListener('click', (e) => {
         if (e.target === backdrop || e.target.hasAttribute('data-close')) backdrop.remove();
       });
@@ -978,14 +992,14 @@ const blockOps = {
 
     function ensureSlideUI() {
       if (!$('#slide-indicator')) {
-        const ind = el(`<div id="slide-indicator" data-editor-ui="slide-ind"></div>`);
+        const ind = el(`<div id="slide-indicator" data-editor-ui="slide-ind"><\/div>`);
         document.body.appendChild(ind);
       }
       if (!$('#slide-nav')) {
         const nav = el(`<div id="slide-nav" data-editor-ui="slide-nav">
-          <button data-nav="prev" title="Previous (←)">‹</button>
-          <button data-nav="next" title="Next (→)">›</button>
-        </div>`);
+          <button data-nav="prev" title="Previous (←)">‹<\/button>
+          <button data-nav="next" title="Next (→)">›<\/button>
+        <\/div>`);
         nav.addEventListener('click', (e) => {
           const b = e.target.closest('[data-nav]');
           if (!b) return;
@@ -1153,10 +1167,10 @@ const blockOps = {
     function showRestoreBanner(data) {
       const ago = Math.round((Date.now() - data.t) / 60000);
       const banner = el(`<div id="restore-banner" data-editor-ui="restore">
-        <span>Unsaved draft from ${ago} min ago</span>
-        <button data-r="restore">Restore</button>
-        <button class="secondary" data-r="discard">Discard</button>
-      </div>`);
+        <span>Unsaved draft from ${ago} min ago<\/span>
+        <button data-r="restore">Restore<\/button>
+        <button class="secondary" data-r="discard">Discard<\/button>
+      <\/div>`);
       banner.addEventListener('click', (e) => {
         const b = e.target.closest('[data-r]');
         if (!b) return;
@@ -1174,6 +1188,120 @@ const blockOps = {
       });
       document.body.appendChild(banner);
     }
+    
+    /* -- link -- */
+function removeLink() {
+  if (!state.editMode) return;
+
+  const selection = window.getSelection();
+  if (!selection || !selection.rangeCount) return;
+
+  const node = selection.anchorNode;
+  const element = node?.nodeType === Node.ELEMENT_NODE
+    ? node
+    : node?.parentElement;
+
+  const link = element?.closest('a');
+
+  if (!link || !$('#content').contains(link)) {
+    alert('Place your cursor or select text inside the link you want to remove.');
+    return;
+  }
+
+  // Rimuove il link lasciando intatto il testo.
+  const parent = link.parentNode;
+  while (link.firstChild) {
+    parent.insertBefore(link.firstChild, link);
+  }
+  link.remove();
+
+  markDirty();
+  autosave();
+  }
+  
+    function insertLink() {
+  if (!state.editMode) return;
+
+  const selection = window.getSelection();
+  if (!selection || !selection.rangeCount) {
+    alert('Select text in a paragraph or place the cursor within it.');
+    return;
+  }
+
+  const range = selection.getRangeAt(0);
+
+  const startNode = range.startContainer;
+  const startElement = startNode.nodeType === Node.ELEMENT_NODE
+    ? startNode
+    : startNode.parentElement;
+
+  const editable = startElement?.closest('[contenteditable="true"]');
+
+  if (!editable || !$('#content').contains(editable)) {
+    alert('Posiziona il cursore in un paragrafo modificabile.');
+    return;
+  }
+
+  let url = prompt('Insert URL:', 'https://');
+  if (url === null) return;
+
+  url = url.trim();
+  if (!url) return;
+
+  // Appends https:// if the address does not have a pattern or relative path.
+  if (!/^(https?:\/\/|mailto:|tel:|#|\/|\.\/|\.\.\/)/i.test(url)) {
+    url = 'https://' + url;
+  }
+
+  let parsedUrl;
+  try {
+    parsedUrl = new URL(url, location.href);
+  } catch {
+    alert('The URL entered is not valid.');
+    return;
+  }
+
+  if (!['http:', 'https:', 'mailto:', 'tel:'].includes(parsedUrl.protocol)
+      && !url.startsWith('#')
+      && !url.startsWith('/')) {
+    alert('This type of URL is not allowed.');
+    return;
+  }
+
+  const selectedText = range.toString();
+  let linkText = selectedText;
+
+  if (!selectedText) {
+    linkText = prompt('Text to display:', url);
+    if (linkText === null) return;
+    linkText = linkText.trim() || url;
+  }
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+
+  if (selectedText) {
+    link.appendChild(range.extractContents());
+  } else {
+    link.textContent = linkText;
+  }
+
+  range.deleteContents();
+  range.insertNode(link);
+
+  // Place your cursor after the link you just created.
+  editable.focus();
+  const newRange = document.createRange();
+  newRange.setStartAfter(link);
+  newRange.collapse(true);
+  selection.removeAllRanges();
+  selection.addRange(newRange);
+
+  markDirty();
+  autosave();
+}
 
     /* === ACTIONS === */
     const actions = {
@@ -1181,6 +1309,8 @@ const blockOps = {
       'toggle-mode': () => setMode(state.mode === 'doc' ? 'slides' : 'doc'),
       'cycle-theme': cycleTheme,
       'cycle-palette': cyclePalette,
+      'insert-link': insertLink,
+      'remove-link': removeLink,
       save,
       'export-pdf': () => window.print(),
       help: openHelp,
