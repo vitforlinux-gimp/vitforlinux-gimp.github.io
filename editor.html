@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-palette="default">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Untitled Presentation</title>
+  <style>
+    /* === RESET === */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+
+    /* === TOKENS === */
+    :root {
+      --bg: #ffffff;
+      --fg: #15151a;
+      --fg-muted: #6b6b78;
+      --border: #e6e6ea;
+      --surface: #f6f6f8;
+      --surface-2: #ececf0;
+      --code-bg: #f3f3f5;
+      --accent: #0066ff;
+      --accent-soft: rgba(0, 102, 255, 0.1);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.04), 0 1px 3px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --font-display: ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+      --font-body: ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+      --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      --transition: 160ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0c0c10;
+      --fg: #ececf1;
+      --fg-muted: #9a9ab0;
+      --border: #2a2a36;
+      --surface: #16161d;
+      --surface-2: #20202a;
+      --code-bg: #16161d;
+      --accent-soft: rgba(110, 168, 255, 0.18);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.3), 0 1px 3px rgba(0,0,0,.4);
+      --shadow-md: 0 4px 12px rgba(0,0,0,.4), 0 2px 4px rgba(0,0,0,.3);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,.5), 0 4px 8px rgba(0,0,0,.3);
+    }
+
+    [data-theme="sepia"] {
+      --bg: #f5efdc;
+      --fg: #3d2f17;
+      --fg-muted: #7a6543;
+      --border: #d9cfa8;
+      --surface: #efe7c8;
+      --surface-2: #e6dcb6;
+      --code-bg: #ece2bf;
+      --accent-soft: rgba(184, 81, 30, 0.14);
+    }
+
+    [data-palette="default"] { --accent: #0066ff; --accent-soft: rgba(0, 102, 255, 0.12); }
+    [data-palette="mono"] { --accent: var(--fg); --accent-soft: rgba(128, 128, 128, 0.18); }
+    [data-palette="warm"] { --accent: #d97706; --accent-soft: rgba(217, 119, 6, 0.14); }
+    [data-palette="green"] { --accent: #059669; --accent-soft: rgba(5, 150, 105, 0.14); }
+    [data-theme="dark"][data-palette="default"] { --accent: #6ea8ff; }
+    [data-theme="dark"][data-palette="warm"] { --accent: #fbbf24; }
+    [data-theme="dark"][data-palette="green"] { --accent: #34d399; }
+
+    /* === BASE === */
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; line-height: 1.15; margin: 0; }
+    h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; }
+    h3 { font-size: clamp(1.4rem, 2.4vw, 1.85rem); font-weight: 600; }
+    p { margin: 0; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code, pre { font-family: var(--font-mono); font-size: 0.92em; }
+
+    /* === LAYOUT === */
+    #content {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 96px 32px 200px;
+    }
+
+    /* === BLOCKS === */
+    .block {
+      position: relative;
+      padding: 48px 0;
+    }
+    .block + .block { border-top: 1px solid transparent; }
+
+    [data-block="hero"] {
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+      padding: 120px 0;
+    }
+    [data-block="hero"] h1 { font-size: clamp(3rem, 7vw, 5.5rem); }
+    [data-block="hero"] p { font-size: clamp(1.1rem, 1.8vw, 1.4rem); color: var(--fg-muted); max-width: 36em; }
+
+    [data-block="heading"] { display: flex; flex-direction: column; gap: 14px; padding: 56px 0 32px; }
+    [data-block="heading"] p { color: var(--fg-muted); font-size: 1.1rem; max-width: 38em; }
+
+    [data-block="text"] p { font-size: 1.05rem; max-width: 38em; }
+
+    [data-block="two-col"] {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    [data-block="two-col"] > div { font-size: 1rem; }
+
+    [data-block="image-text"] {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    [data-block="image-text"][data-flip="true"] { direction: rtl; }
+    [data-block="image-text"][data-flip="true"] > * { direction: ltr; }
+    [data-block="image-text"] img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    [data-block="image-text"] h3 { margin-bottom: 12px; }
+    [data-block="image-text"] p { color: var(--fg-muted); }
+    
+    [data-block="image-big"] {
+      gap: 48px;
+      align-items: center;
+    }
+    [data-block="image-big"][data-flip="true"] { direction: rtl; }
+    [data-block="image-big"][data-flip="true"] > * { direction: ltr; }
+    [data-block="image-big"] img {
+      width: 80%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    [data-block="image-big"] p { color: var(--fg-muted); }
+
+    [data-block="bullet-list"] h3 { margin-bottom: 20px; }
+    [data-block="bullet-list"] ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    [data-block="bullet-list"] li {
+      position: relative;
+      padding-left: 28px;
+      font-size: 1.05rem;
+    }
+    [data-block="bullet-list"] li::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 0.7em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    [data-block="quote"] {
+      padding: 64px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      border-left: 3px solid var(--accent);
+      padding-left: 32px;
+    }
+    [data-block="quote"] blockquote {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+      font-weight: 500;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+    [data-block="quote"] cite {
+      font-style: normal;
+      color: var(--fg-muted);
+      font-size: 0.95rem;
+    }
+
+    [data-block="code"] pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      overflow-x: auto;
+      margin: 0;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 720px) {
+      #content { padding: 64px 20px 160px; }
+      [data-block="two-col"], [data-block="image-text"] { grid-template-columns: 1fr; gap: 24px; }
+    }
+
+    /* === EDITABLE STATE === */
+    [contenteditable] {
+      outline: none;
+      border-radius: 4px;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    [contenteditable]:hover { background: var(--accent-soft); }
+    [contenteditable]:focus {
+      background: var(--accent-soft);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    body.is-editing img {
+      cursor: pointer;
+      transition: opacity var(--transition);
+    }
+    body.is-editing img:hover { opacity: 0.85; outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* === EDITOR UI === */
+    #editor-toolbar {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      box-shadow: var(--shadow-md);
+      backdrop-filter: saturate(140%) blur(20px);
+      -webkit-backdrop-filter: saturate(140%) blur(20px);
+      font-family: var(--font-body);
+      font-size: 13px;
+    }
+    .tb-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: var(--fg);
+      transition: background var(--transition);
+      white-space: nowrap;
+    }
+    .tb-btn:hover { background: var(--surface-2); }
+    .tb-btn.is-active { background: var(--accent); color: #fff; }
+    .tb-btn.is-active:hover { background: var(--accent); opacity: 0.9; }
+    .tb-icon-btn { padding: 8px 10px; }
+    .tb-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+    .tb-status {
+      padding: 0 12px;
+      color: var(--fg-muted);
+      font-size: 12px;
+      min-width: 72px;
+      text-align: center;
+    }
+    .tb-status.is-dirty { color: var(--accent); }
+    .tb-status.is-saved { color: var(--fg-muted); }
+
+    .insert-button {
+      position: relative;
+      height: 36px;
+      margin: -18px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+    }
+    .insert-button::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .insert-button-icon {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+      box-shadow: var(--shadow-sm);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    body.is-editing .insert-button:hover::before,
+    body.is-editing .insert-button:hover .insert-button-icon { opacity: 1; }
+
+    .block-controls {
+      position: absolute;
+      top: 8px;
+      right: -56px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+      opacity: 0;
+      transform: translateX(-8px);
+      pointer-events: none;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    body.is-editing .block:hover > .block-controls,
+    body.is-editing .block:focus-within > .block-controls {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+    .bc-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg-muted);
+      transition: background var(--transition), color var(--transition);
+      font-size: 14px;
+    }
+    .bc-btn:hover { background: var(--surface-2); color: var(--fg); }
+    .bc-btn.is-danger:hover { color: #dc2626; }
+
+    @media (max-width: 1100px) {
+      .block-controls { right: 4px; top: 4px; flex-direction: row; }
+    }
+
+    /* === MODAL === */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 160ms ease-out;
+    }
+    .modal {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      max-width: 720px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      animation: scaleIn 160ms ease-out;
+    }
+    .modal h3 { margin-bottom: 20px; font-size: 1.2rem; }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg-muted);
+      transition: background var(--transition);
+    }
+    .modal-close:hover { background: var(--surface); }
+
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .template-card {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: border-color var(--transition), background var(--transition);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .template-card:hover { border-color: var(--accent); background: var(--accent-soft); }
+    .template-card-preview {
+      height: 64px;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg-muted);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      overflow: hidden;
+    }
+    .template-card-name { font-weight: 600; font-size: 14px; }
+    .template-card-desc { font-size: 12px; color: var(--fg-muted); line-height: 1.4; }
+
+    .shortcuts-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 24px;
+      font-size: 14px;
+    }
+    .shortcuts-list dt {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background: var(--surface);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      display: inline-block;
+      width: fit-content;
+    }
+    .shortcuts-list dd { margin: 0 0 6px; color: var(--fg-muted); }
+
+    /* === RESTORE BANNER === */
+    #restore-banner {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      font-size: 14px;
+    }
+    #restore-banner button {
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+    }
+    #restore-banner button.secondary { background: var(--surface-2); color: var(--fg); }
+
+    /* === SLIDES MODE === */
+    body.mode-slides {
+      overflow: hidden;
+      height: 100vh;
+    }
+    body.mode-slides #content {
+      max-width: none;
+      padding: 0;
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+    body.mode-slides #content::-webkit-scrollbar { display: none; }
+    body.mode-slides #content { scrollbar-width: none; }
+    body.mode-slides .block {
+      min-height: 100vh;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 64px;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border: none;
+    }
+    /* === SLIDES MODE two-col === */
+    
+    body.mode-slides .block[data-block="two-col"] {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px;
+}
+
+/* Image-text also uses a grid and is overwritten in the same way */
+body.mode-slides .block[data-block="image-text"] {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: center;
+}
+
+    body.mode-slides .block-controls { right: 24px; top: 24px; }
+    #slide-indicator {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 900;
+      padding: 8px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--fg-muted);
+      box-shadow: var(--shadow-sm);
+      font-variant-numeric: tabular-nums;
+    }
+    #slide-nav {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 900;
+      display: flex;
+      gap: 4px;
+    }
+    #slide-nav button {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg);
+    }
+    #slide-nav button:hover { background: var(--surface-2); }
+
+    /* === ANIMATIONS === */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+
+    /* === PRINT === */
+    @media print {
+      [data-editor-ui], #editor-toolbar, #slide-indicator, #slide-nav, .insert-button, .block-controls, .modal-backdrop, #restore-banner {
+        display: none !important;
+      }
+      body { background: #fff; color: #000; height: auto; overflow: visible; }
+      body.mode-slides #content { height: auto; overflow: visible; }
+      #content { max-width: 100%; padding: 0; }
+      .block {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        padding: 32px 24px;
+        min-height: 0;
+      }
+      body.mode-slides .block,
+      [data-block="hero"] {
+        page-break-after: always;
+        break-after: page;
+        min-height: 90vh;
+        height: 90vh;
+      }
+      [contenteditable] { background: transparent !important; box-shadow: none !important; }
+      a { color: #000; text-decoration: underline; }
+    }
+  </style>
+</head>
+<body class="mode-doc">
+  <main id="content">
+    <section class="block" data-block="hero">
+      <h1 data-edit>Untitled Presentation</h1>
+      <p data-edit>Click any text to edit it. Press E to toggle edit mode. Cmd+S to save.</p>
+    </section>
+    <section class="block" data-block="text">
+      <p data-edit>This is a self-contained HTML presentation editor. Everything you see — including this paragraph, the toolbar, and even the editor itself — lives inside one file. Edit it in your browser, save it back to disk, and share the file with anyone.</p>
+    </section>
+    <section class="block" data-block="bullet-list">
+      <h3 data-edit>Three things to try</h3>
+      <ul data-edit>
+        <li>Hover between any two blocks to add a new one</li>
+        <li>Hover a block to move, duplicate, or delete it</li>
+        <li>Press S to flip into slides mode and use arrow keys</li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+  (() => {
+    'use strict';
+
+    /* === STATE === */
+    const state = {
+      fileHandle: null,
+      mode: 'doc',
+      editMode: true,
+      theme: document.documentElement.dataset.theme || 'light',
+      palette: document.documentElement.dataset.palette || 'default',
+      undoStack: [],
+      saveStatus: 'saved',
+      lastSavedAt: null,
+      currentSlide: 0,
+    };
+
+    const STORAGE_KEY = 'phe:autosave:' + location.pathname;
+    const PLACEHOLDER_IMG = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">' +
+      '<rect width="800" height="500" fill="#e9e9ee"/>' +
+      '<text x="400" y="250" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system, sans-serif" font-size="20" fill="#999">Click to replace image</text>' +
+      '</svg>'
+    );
+
+    /* === TEMPLATES === */
+    const templates = {
+      hero: () => `<section class="block" data-block="hero">
+        <h1 data-edit>New title</h1>
+        <p data-edit>Subtitle goes here</p>
+      </section>`,
+      heading: () => `<section class="block" data-block="heading">
+        <h2 data-edit>Section heading</h2>
+        <p data-edit>Optional lead paragraph that introduces this section.</p>
+      </section>`,
+      text: () => `<section class="block" data-block="text">
+        <p data-edit>Write your paragraph here. Edit freely — text wraps and stays readable up to a comfortable measure.</p>
+      </section>`,
+      'two-col': () => `<section class="block" data-block="two-col">
+        <div data-edit>Left column. Use this for comparisons, before/after, or two parallel ideas.</div>
+        <div data-edit>Right column. Each side is independently editable.</div>
+      </section>`,
+      'image-text': () => `<section class="block" data-block="image-text">
+        <img loading="lazy" src="${PLACEHOLDER_IMG}" alt="Click to replace">
+        <div>
+          <h3 data-edit>Block title</h3>
+          <p data-edit>Describe what the image shows or use this space for a related thought.</p>
+        </div>
+      </section>`,
+      'image-big': () => `<section class="block" data-block="image-big">
+        <img loading="lazy" src="${PLACEHOLDER_IMG}" alt="Click to replace">
+        <div>
+          <p data-edit>Describe what the image shows or use this space for a related thought.</p>
+        </div>
+      </section>`,
+      'bullet-list': () => `<section class="block" data-block="bullet-list">
+        <h3 data-edit>List title</h3>
+        <ul data-edit>
+          <li>First item</li>
+          <li>Second item</li>
+          <li>Third item</li>
+        </ul>
+      </section>`,
+      quote: () => `<section class="block" data-block="quote">
+        <blockquote data-edit>"A short, memorable quote that anchors a section."</blockquote>
+        <cite data-edit>— Author Name</cite>
+      </section>`,
+      code: () => `<section class="block" data-block="code">
+        <pre data-edit>const message = "Hello, world!";
+console.log(message);</pre>
+      </section>`,
+    };
+
+    const templateMeta = {
+      hero: { name: 'Hero', desc: 'Big title slide', preview: 'TITLE' },
+      heading: { name: 'Heading', desc: 'Section break with lead', preview: 'H2 + lead' },
+      text: { name: 'Text', desc: 'Paragraph block', preview: '— text —' },
+      'two-col': { name: 'Two columns', desc: 'Side-by-side text', preview: '◧ ◨' },
+      'image-text': { name: 'Image + text', desc: 'Picture with H3 and caption', preview: '🖼 + text' },
+	'image-big': { name: 'Image + BIG', desc: 'BIG Picture with caption', preview: '🖼 + caption' },
+      'bullet-list': { name: 'List', desc: 'Bulleted items', preview: '• • •' },
+      quote: { name: 'Quote', desc: 'Pull quote with cite', preview: '“ ”' },
+      code: { name: 'Code', desc: 'Monospace block', preview: '< / >' },
+    };
+
+    /* === DOM HELPERS === */
+    const $ = (sel, root = document) => root.querySelector(sel);
+    const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+    const el = (html) => {
+      const tpl = document.createElement('template');
+      tpl.innerHTML = html.trim();
+      return tpl.content.firstElementChild;
+    };
+
+    /* === TOOLBAR === */
+    function buildToolbar() {
+      const tb = document.createElement('div');
+      tb.id = 'editor-toolbar';
+      tb.dataset.editorUi = 'toolbar';
+      tb.innerHTML = `
+        <button class="tb-btn" data-action="toggle-edit" title="Toggle edit mode (E)">
+          <span class="tb-icon">✎</span><span class="tb-label">Edit</span>
+        </button>
+        <button class="tb-btn" data-action="toggle-mode" title="Toggle slides mode (S)">
+          <span class="tb-icon">⇆</span><span class="tb-label">Doc</span>
+        </button>
+        <div class="tb-sep"></div>
+        <button class="tb-btn tb-icon-btn" data-action="cycle-theme" title="Cycle theme">☀</button>
+        <button class="tb-btn tb-icon-btn" data-action="cycle-palette" title="Cycle palette">◐</button>
+        <div class="tb-sep"></div>
+        <button class="tb-btn" data-action="save" title="Save (Cmd+S)">
+          <span class="tb-icon">↓</span><span class="tb-label">Save</span>
+        </button>
+        <button class="tb-btn" data-action="export-pdf" title="Print to PDF (Cmd+P)">
+          <span class="tb-icon">⎙</span><span class="tb-label">PDF</span>
+        </button>
+        <div class="tb-sep"></div>
+        <span class="tb-status" id="save-status">Ready</span>
+        <button class="tb-btn tb-icon-btn" data-action="help" title="Keyboard shortcuts (?)">?</button>
+      `;
+      tb.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-action]');
+        if (!btn) return;
+        actions[btn.dataset.action]?.();
+      });
+      return tb;
+    }
+
+    function updateToolbarLabels() {
+      const editBtn = $('[data-action="toggle-edit"]');
+      const modeBtn = $('[data-action="toggle-mode"]');
+      if (editBtn) {
+        editBtn.classList.toggle('is-active', state.editMode);
+        editBtn.querySelector('.tb-label').textContent = state.editMode ? 'Edit' : 'Preview';
+      }
+      if (modeBtn) {
+        modeBtn.classList.toggle('is-active', state.mode === 'slides');
+        modeBtn.querySelector('.tb-label').textContent = state.mode === 'slides' ? 'Slides' : 'Doc';
+      }
+    }
+
+    /* === STATUS === */
+    function setStatus(text, kind = 'saved') {
+      const s = $('#save-status');
+      if (!s) return;
+      s.textContent = text;
+      s.className = 'tb-status is-' + kind;
+    }
+    function markDirty() {
+      if (state.saveStatus === 'dirty') return;
+      state.saveStatus = 'dirty';
+      setStatus('Unsaved', 'dirty');
+    }
+    function markSaved() {
+      state.saveStatus = 'saved';
+      state.lastSavedAt = Date.now();
+      setStatus('Saved', 'saved');
+    }
+
+    /* === BLOCK UI === */
+    function buildInsertButton(beforeBlock) {
+      const btn = el(`<div class="insert-button" data-editor-ui="insert"><div class="insert-button-icon">+</div></div>`);
+      btn.addEventListener('click', () => openTemplatePicker(beforeBlock));
+      return btn;
+    }
+
+    function buildBlockControls() {
+      const wrap = el(`<div class="block-controls" data-editor-ui="controls">
+        <button class="bc-btn" data-bc="up" title="Move up">↑</button>
+        <button class="bc-btn" data-bc="down" title="Move down">↓</button>
+        <button class="bc-btn" data-bc="duplicate" title="Duplicate">⎘</button>
+        <button class="bc-btn is-danger" data-bc="delete" title="Delete">×</button>
+      </div>`);
+      wrap.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-bc]');
+        if (!btn) return;
+        e.stopPropagation();
+        const block = wrap.closest('.block');
+        blockOps[btn.dataset.bc]?.(block);
+      });
+      return wrap;
+    }
+
+    function refreshBlockUI() {
+      const content = $('#content');
+      $$('[data-editor-ui="insert"], [data-editor-ui="controls"]').forEach(n => n.remove());
+      if (!state.editMode) return;
+      const blocks = $$('.block', content);
+      blocks.forEach(b => {
+        content.insertBefore(buildInsertButton(b), b);
+        b.appendChild(buildBlockControls());
+      });
+      content.appendChild(buildInsertButton(null));
+    }
+
+    /* === BLOCK OPS === */
+const blockOps = {
+  up(block) {
+    const parent = block.parentElement;
+    const blocks = [...parent.children].filter(el => el.classList.contains('block'));
+    const index = blocks.indexOf(block);
+
+    if (index > 0) {
+      parent.insertBefore(block, blocks[index - 1]);
+      afterMutation();
+    }
+  },
+
+  down(block) {
+    const parent = block.parentElement;
+    const blocks = [...parent.children].filter(el => el.classList.contains('block'));
+    const index = blocks.indexOf(block);
+
+    if (index >= 0 && index < blocks.length - 1) {
+      parent.insertBefore(blocks[index + 1], block);
+      afterMutation();
+    }
+  },
+
+  duplicate(block) {
+    const clone = block.cloneNode(true);
+    clone.querySelectorAll('[data-editor-ui]').forEach(n => n.remove());
+    clone.querySelectorAll('[contenteditable]').forEach(n => n.removeAttribute('contenteditable'));
+    block.parentNode.insertBefore(clone, block.nextSibling);
+    afterMutation();
+  },
+
+  delete(block) {
+    const index = [...block.parentNode.children].indexOf(block);
+    state.undoStack.push({ type: 'delete', html: block.outerHTML, index });
+    block.remove();
+    afterMutation();
+    showUndoToast();
+  },
+};
+
+
+    function afterMutation() {
+      enableEdit();
+      refreshBlockUI();
+      markDirty();
+      autosave();
+      if (state.mode === 'slides') updateSlideIndicator();
+    }
+
+    /* === UNDO TOAST === */
+    let undoTimer = null;
+    function showUndoToast() {
+      let toast = $('#undo-toast');
+      if (toast) toast.remove();
+      toast = el(`<div id="undo-toast" data-editor-ui="toast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:1500;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadow-md);font-size:13px;display:flex;align-items:center;gap:12px">
+        <span>Block deleted</span>
+        <button class="tb-btn" style="padding:4px 10px;background:var(--accent);color:#fff;border-radius:6px">Undo</button>
+      </div>`);
+      toast.querySelector('button').addEventListener('click', () => {
+        const last = state.undoStack.pop();
+        if (!last) return;
+        const restored = el(last.html);
+        const content = $('#content');
+        const blocks = $$('.block', content);
+        const target = blocks[last.index];
+        if (target) content.insertBefore(restored, target);
+        else content.appendChild(restored);
+        afterMutation();
+        toast.remove();
+        clearTimeout(undoTimer);
+      });
+      document.body.appendChild(toast);
+      clearTimeout(undoTimer);
+      undoTimer = setTimeout(() => toast.remove(), 5000);
+    }
+
+    /* === TEMPLATE PICKER === */
+    function openTemplatePicker(beforeBlock) {
+      const backdrop = el(`<div class="modal-backdrop" data-editor-ui="modal">
+        <div class="modal" style="position:relative">
+          <button class="modal-close" data-close>×</button>
+          <h3>Insert block</h3>
+          <div class="template-grid"></div>
+        </div>
+      </div>`);
+      const grid = backdrop.querySelector('.template-grid');
+      Object.entries(templateMeta).forEach(([key, meta]) => {
+        const card = el(`<button class="template-card" data-tpl="${key}">
+          <div class="template-card-preview">${meta.preview}</div>
+          <div class="template-card-name">${meta.name}</div>
+          <div class="template-card-desc">${meta.desc}</div>
+        </button>`);
+        card.addEventListener('click', () => {
+          const newBlock = el(templates[key]());
+          const content = $('#content');
+          if (beforeBlock) content.insertBefore(newBlock, beforeBlock);
+          else {
+            const lastBlock = $$('.block', content).pop();
+            if (lastBlock) lastBlock.parentNode.insertBefore(newBlock, lastBlock.nextSibling);
+            else content.appendChild(newBlock);
+          }
+          backdrop.remove();
+          afterMutation();
+          const firstEditable = newBlock.querySelector('[data-edit]');
+          if (firstEditable) firstEditable.focus();
+        });
+        grid.appendChild(card);
+      });
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop || e.target.hasAttribute('data-close')) backdrop.remove();
+      });
+      document.body.appendChild(backdrop);
+    }
+
+    /* === HELP MODAL === */
+    function openHelp() {
+      const backdrop = el(`<div class="modal-backdrop" data-editor-ui="modal">
+        <div class="modal" style="position:relative;max-width:500px">
+          <button class="modal-close" data-close>×</button>
+          <h3>Keyboard shortcuts</h3>
+          <dl class="shortcuts-list">
+            <dt>E</dt><dd>Toggle edit / preview</dd>
+            <dt>S</dt><dd>Toggle slides mode</dd>
+            <dt>Cmd+S</dt><dd>Save file</dd>
+            <dt>Cmd+P</dt><dd>Print / export PDF</dd>
+            <dt>← →</dt><dd>Navigate slides (in slides mode)</dd>
+            <dt>?</dt><dd>This help</dd>
+            <dt>Esc</dt><dd>Close dialogs</dd>
+          </dl>
+        </div>
+      </div>`);
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop || e.target.hasAttribute('data-close')) backdrop.remove();
+      });
+      document.body.appendChild(backdrop);
+    }
+
+    /* === EDIT MODE === */
+    function enableEdit() {
+      $$('[data-edit]').forEach(node => node.setAttribute('contenteditable', 'true'));
+    }
+    function disableEdit() {
+      $$('[contenteditable]').forEach(node => node.removeAttribute('contenteditable'));
+    }
+    function setEditMode(on) {
+      state.editMode = on;
+      document.body.classList.toggle('is-editing', on);
+      if (on) enableEdit(); else disableEdit();
+      refreshBlockUI();
+      updateToolbarLabels();
+    }
+
+    /* === SLIDES MODE === */
+    function setMode(mode) {
+      state.mode = mode;
+      document.body.classList.remove('mode-doc', 'mode-slides');
+      document.body.classList.add('mode-' + mode);
+      if (mode === 'slides') {
+        ensureSlideUI();
+        state.currentSlide = 0;
+        scrollToSlide(0);
+        updateSlideIndicator();
+      } else {
+        $('#slide-indicator')?.remove();
+        $('#slide-nav')?.remove();
+      }
+      updateToolbarLabels();
+    }
+
+    function ensureSlideUI() {
+      if (!$('#slide-indicator')) {
+        const ind = el(`<div id="slide-indicator" data-editor-ui="slide-ind"></div>`);
+        document.body.appendChild(ind);
+      }
+      if (!$('#slide-nav')) {
+        const nav = el(`<div id="slide-nav" data-editor-ui="slide-nav">
+          <button data-nav="prev" title="Previous (←)">‹</button>
+          <button data-nav="next" title="Next (→)">›</button>
+        </div>`);
+        nav.addEventListener('click', (e) => {
+          const b = e.target.closest('[data-nav]');
+          if (!b) return;
+          if (b.dataset.nav === 'prev') prevSlide();
+          else nextSlide();
+        });
+        document.body.appendChild(nav);
+      }
+    }
+
+    function getSlides() { return $$('.block', $('#content')); }
+    function scrollToSlide(idx) {
+      const slides = getSlides();
+      if (slides[idx]) slides[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      state.currentSlide = idx;
+      updateSlideIndicator();
+    }
+    function nextSlide() {
+      const slides = getSlides();
+      scrollToSlide(Math.min(state.currentSlide + 1, slides.length - 1));
+    }
+    function prevSlide() {
+      scrollToSlide(Math.max(state.currentSlide - 1, 0));
+    }
+    function updateSlideIndicator() {
+      const ind = $('#slide-indicator');
+      if (!ind) return;
+      const total = getSlides().length;
+      ind.textContent = `${state.currentSlide + 1} / ${total}`;
+    }
+
+    /* === THEME === */
+    const THEMES = ['light', 'dark', 'sepia'];
+    const PALETTES = ['default', 'mono', 'warm', 'green'];
+    function setTheme(t) {
+      state.theme = t;
+      document.documentElement.dataset.theme = t;
+      markDirty();
+    }
+    function setPalette(p) {
+      state.palette = p;
+      document.documentElement.dataset.palette = p;
+      markDirty();
+    }
+    function cycleTheme() { setTheme(THEMES[(THEMES.indexOf(state.theme) + 1) % THEMES.length]); }
+    function cyclePalette() { setPalette(PALETTES[(PALETTES.indexOf(state.palette) + 1) % PALETTES.length]); }
+
+    /* === IMAGE SWAP === */
+    function bindImageSwap() {
+      document.addEventListener('click', (e) => {
+        if (!state.editMode) return;
+        const img = e.target.closest('img');
+        if (!img || !$('#content').contains(img)) return;
+        if (e.target.closest('[data-editor-ui]')) return;
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.onchange = (ev) => {
+          const file = ev.target.files?.[0];
+          if (!file) return;
+          if (file.size > 5 * 1024 * 1024) {
+            alert('Image is larger than 5 MB. Embedding it as base64 will bloat the file. Pick a smaller image or proceed at your own risk.');
+          }
+          const reader = new FileReader();
+          reader.onload = (re) => {
+            img.src = re.target.result;
+            markDirty();
+            autosave();
+          };
+          reader.readAsDataURL(file);
+        };
+        input.click();
+      });
+    }
+
+    /* === SAVE === */
+    function buildSaveHtml() {
+      const clone = document.documentElement.cloneNode(true);
+      clone.querySelectorAll('[data-editor-ui]').forEach(n => n.remove());
+      clone.querySelectorAll('[contenteditable]').forEach(n => n.removeAttribute('contenteditable'));
+      const body = clone.querySelector('body');
+      if (body) body.className = 'mode-' + state.mode;
+      clone.dataset.theme = state.theme;
+      clone.dataset.palette = state.palette;
+      return '<!DOCTYPE html>\n' + clone.outerHTML;
+    }
+
+    function downloadBlob(html, filename) {
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    async function save() {
+      const html = buildSaveHtml();
+      setStatus('Saving…', 'dirty');
+      try {
+        if (state.fileHandle) {
+          const writable = await state.fileHandle.createWritable();
+          await writable.write(html);
+          await writable.close();
+          markSaved();
+        } else if ('showSaveFilePicker' in window) {
+          const suggested = (location.pathname.split('/').pop() || 'presentation.html').replace(/[^a-zA-Z0-9._-]/g, '_') || 'presentation.html';
+          state.fileHandle = await window.showSaveFilePicker({
+            suggestedName: suggested.endsWith('.html') ? suggested : suggested + '.html',
+            types: [{ description: 'HTML', accept: { 'text/html': ['.html', '.htm'] } }],
+          });
+          const writable = await state.fileHandle.createWritable();
+          await writable.write(html);
+          await writable.close();
+          markSaved();
+        } else {
+          downloadBlob(html, 'presentation.html');
+          markSaved();
+        }
+        try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+      } catch (err) {
+        if (err.name === 'AbortError') {
+          setStatus('Cancelled', 'dirty');
+        } else {
+          console.error('Save failed', err);
+          setStatus('Save failed', 'dirty');
+        }
+      }
+    }
+
+    /* === AUTOSAVE === */
+    let autosaveTimer = null;
+    function autosave() {
+      clearTimeout(autosaveTimer);
+      autosaveTimer = setTimeout(() => {
+        try {
+          const data = {
+            html: $('#content').innerHTML,
+            theme: state.theme,
+            palette: state.palette,
+            mode: state.mode,
+            t: Date.now(),
+          };
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        } catch (_) {}
+      }, 800);
+    }
+
+    function checkRestore() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        if (data.html === $('#content').innerHTML) {
+          localStorage.removeItem(STORAGE_KEY);
+          return;
+        }
+        showRestoreBanner(data);
+      } catch (_) {}
+    }
+
+    function showRestoreBanner(data) {
+      const ago = Math.round((Date.now() - data.t) / 60000);
+      const banner = el(`<div id="restore-banner" data-editor-ui="restore">
+        <span>Unsaved draft from ${ago} min ago</span>
+        <button data-r="restore">Restore</button>
+        <button class="secondary" data-r="discard">Discard</button>
+      </div>`);
+      banner.addEventListener('click', (e) => {
+        const b = e.target.closest('[data-r]');
+        if (!b) return;
+        if (b.dataset.r === 'restore') {
+          $('#content').innerHTML = data.html;
+          if (data.theme) setTheme(data.theme);
+          if (data.palette) setPalette(data.palette);
+          if (data.mode) setMode(data.mode);
+          afterMutation();
+          markDirty();
+        } else {
+          try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+        }
+        banner.remove();
+      });
+      document.body.appendChild(banner);
+    }
+
+    /* === ACTIONS === */
+    const actions = {
+      'toggle-edit': () => setEditMode(!state.editMode),
+      'toggle-mode': () => setMode(state.mode === 'doc' ? 'slides' : 'doc'),
+      'cycle-theme': cycleTheme,
+      'cycle-palette': cyclePalette,
+      save,
+      'export-pdf': () => window.print(),
+      help: openHelp,
+    };
+
+    /* === KEYBOARD === */
+    function isTextInput(target) {
+      if (!target) return false;
+      if (target.isContentEditable) return true;
+      const tag = target.tagName;
+      return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        save();
+        return;
+      }
+      if (e.key === 'Escape') {
+        $$('.modal-backdrop').forEach(m => m.remove());
+        if (document.activeElement?.isContentEditable) document.activeElement.blur();
+        return;
+      }
+      if (isTextInput(e.target)) return;
+      if (e.key.toLowerCase() === 'e') { setEditMode(!state.editMode); return; }
+      if (e.key.toLowerCase() === 's') { setMode(state.mode === 'doc' ? 'slides' : 'doc'); return; }
+      if (e.key === '?') { openHelp(); return; }
+      if (state.mode === 'slides') {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+        if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prevSlide(); }
+      }
+    });
+
+    /* === MUTATION TRACKING === */
+    function bindContentMutations() {
+      const content = $('#content');
+      content.addEventListener('input', (e) => {
+        if (e.target.closest('[data-editor-ui]')) return;
+        markDirty();
+        autosave();
+      });
+    }
+
+    /* === SLIDE SCROLL TRACKING === */
+    function bindSlideScroll() {
+      const content = $('#content');
+      let raf = null;
+      content.addEventListener('scroll', () => {
+        if (state.mode !== 'slides') return;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const slides = getSlides();
+          const top = content.scrollTop;
+          const idx = slides.findIndex(s => s.offsetTop + s.offsetHeight / 2 > top);
+          if (idx !== -1 && idx !== state.currentSlide) {
+            state.currentSlide = idx;
+            updateSlideIndicator();
+          }
+        });
+      });
+    }
+
+    /* === INIT === */
+    function init() {
+      document.body.appendChild(buildToolbar());
+      setEditMode(true);
+      updateToolbarLabels();
+      bindImageSwap();
+      bindContentMutations();
+      bindSlideScroll();
+      checkRestore();
+      markSaved();
+      setStatus('Ready', 'saved');
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+  </script>
+</body>
+</html>
