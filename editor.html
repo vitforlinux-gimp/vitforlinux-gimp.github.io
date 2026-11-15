@@ -264,7 +264,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 14px;
+      padding: 6px 8px;
       border-radius: 999px;
       color: var(--fg);
       transition: background var(--transition);
@@ -273,7 +273,7 @@
     .tb-btn:hover { background: var(--surface-2); }
     .tb-btn.is-active { background: var(--accent); color: #fff; }
     .tb-btn.is-active:hover { background: var(--accent); opacity: 0.9; }
-    .tb-icon-btn { padding: 8px 10px; }
+    .tb-icon-btn { padding: 6px 4px; }
     .tb-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
     .tb-status {
       padding: 0 12px;
@@ -718,13 +718,40 @@ console.log(message);<\/pre>
           <span class="tb-icon">⇆<\/span><span class="tb-label">Doc<\/span>
         <\/button>
         <div class="tb-sep"><\/div>
-	<button class="tb-btn tb-icon-btn" data-action="insert-link" title="Insert link">
-	🔗
-	<\/button>
-	<button class="tb-btn tb-icon-btn" data-action="remove-link" title="Remove link">
-	⛓̸
-	<\/button>
-	<div class="tb-sep"><\/div>
+	
+<button class="tb-btn tb-icon-btn" data-action="bold"
+        title="Bold (Ctrl/Cmd+B)" aria-label="Bold"><b>B<\/b><\/button>
+<button class="tb-btn tb-icon-btn" data-action="italic"
+        title="Italic (Ctrl/Cmd+I)" aria-label="Italic"><i>I<\/i><\/button>
+<button class="tb-btn tb-icon-btn" data-action="inline-code"
+        title="Inline Code" aria-label="Inline Code">&lt;/&gt;<\/button>
+
+<div class="tb-sep"><\/div>
+
+<button class="tb-btn tb-icon-btn" data-action="align-left" title="Align left" aria-label="Align left">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+    <path d="M2 3h12v1.5H2V3zm0 4h8v1.5H2V7zm0 4h12v1.5H2V11zm0 4h8v1.5H2V15z"/>
+  <\/svg>
+<\/button>
+<button class="tb-btn tb-icon-btn" data-action="align-center" title="Align to center" aria-label="Align to center">
+	<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+		<path d="M2 3h12v1.5H2V3zm2 4h8v1.5H4V7zm-2 4h12v1.5H2V11zm2 4h8v1.5H4V15z"/>
+	<\/svg>
+<\/button>
+<button class="tb-btn tb-icon-btn" data-action="align-right" title="Align right" aria-label="Align right">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+    <path d="M2 3h12v1.5H2V3zm4 4h8v1.5H6V7zm-4 4h12v1.5H2V11zm4 4h8v1.5H6V15z"/>
+  <\/svg>
+<\/button>
+<button class="tb-btn tb-icon-btn" data-action="clear-format"
+        title="Remove formatting" aria-label="Remove formatting">Tx<\/button>
+
+<div class="tb-sep"><\/div>
+
+<button class="tb-btn tb-icon-btn" data-action="insert-link" title="Insert link">🔗<\/button>
+<button class="tb-btn tb-icon-btn" data-action="remove-link" title="Remove link">⛓̸<\/button>
+
+<div class="tb-sep"><\/div>
         <button class="tb-btn tb-icon-btn" data-action="cycle-theme" title="Cycle theme">☀<\/button>
         <button class="tb-btn tb-icon-btn" data-action="cycle-palette" title="Cycle palette">◐<\/button>
         <div class="tb-sep"><\/div>
@@ -740,7 +767,13 @@ console.log(message);<\/pre>
       `;
       
 tb.addEventListener('mousedown', (e) => {
-  if (e.target.closest('[data-action="insert-link"], [data-action="remove-link"]')) {
+  if (e.target.closest(
+    '[data-action="insert-link"], [data-action="remove-link"], ' +
+    '[data-action="bold"], [data-action="italic"], ' +
+    '[data-action="inline-code"], [data-action="align-left"], ' +
+    '[data-action="align-center"], [data-action="align-right"], ' +
+    '[data-action="clear-format"]'
+  )) {
     e.preventDefault();
   }
 });
@@ -1208,7 +1241,7 @@ function removeLink() {
     return;
   }
 
-  // Rimuove il link lasciando intatto il testo.
+  // Removes the link leaving the text intact.
   const parent = link.parentNode;
   while (link.firstChild) {
     parent.insertBefore(link.firstChild, link);
@@ -1238,7 +1271,7 @@ function removeLink() {
   const editable = startElement?.closest('[contenteditable="true"]');
 
   if (!editable || !$('#content').contains(editable)) {
-    alert('Posiziona il cursore in un paragrafo modificabile.');
+    alert('Place the cursor in an editable paragraph.');
     return;
   }
 
@@ -1303,12 +1336,164 @@ function removeLink() {
   autosave();
 }
 
+function getTextEditingContext() {
+  const selection = window.getSelection();
+  if (!selection || !selection.rangeCount) return null;
+
+  const range = selection.getRangeAt(0);
+
+  const getEditable = (node) => {
+    const element = node.nodeType === Node.ELEMENT_NODE
+      ? node
+      : node.parentElement;
+
+    return element?.closest('[contenteditable="true"]');
+  };
+
+  const startEditable = getEditable(range.startContainer);
+  const endEditable = getEditable(range.endContainer);
+
+  if (
+    !startEditable ||
+    startEditable !== endEditable ||
+    !$('#content').contains(startEditable)
+  ) {
+    return null;
+  }
+
+  return { selection, range, editable: startEditable };
+}
+
+function runTextCommand(command) {
+  if (!state.editMode) return;
+
+  const context = getTextEditingContext();
+  if (!context) {
+    alert('Place the cursor or select editable text.');
+    return;
+  }
+
+  context.editable.focus();
+  document.execCommand(command, false, null);
+
+  markDirty();
+  autosave();
+}
+
+function toggleInlineCode() {
+  if (!state.editMode) return;
+
+  const context = getTextEditingContext();
+  if (!context) {
+    alert('Select the text to turn into inline code.');
+    return;
+  }
+
+  const { selection, range, editable } = context;
+
+  if (range.collapsed) {
+    alert('First select the text to turn into inline code.');
+    return;
+  }
+
+  const startNode = range.startContainer.nodeType === Node.ELEMENT_NODE
+    ? range.startContainer
+    : range.startContainer.parentElement;
+
+  const existingCode = startNode?.closest('code');
+
+  if (existingCode && editable.contains(existingCode)) {
+    // If the cursor is already inside inline code, remove the <code> tag.
+    const parent = existingCode.parentNode;
+    while (existingCode.firstChild) {
+      parent.insertBefore(existingCode.firstChild, existingCode);
+    }
+    existingCode.remove();
+  } else {
+    const code = document.createElement('code');
+    code.appendChild(range.extractContents());
+    range.insertNode(code);
+
+    // Keeps the newly formatted text selected.
+    const newRange = document.createRange();
+    newRange.selectNodeContents(code);
+    selection.removeAllRanges();
+    selection.addRange(newRange);
+  }
+
+  markDirty();
+  autosave();
+}
+
+function alignText(alignment) {
+  if (!state.editMode) return;
+
+  const context = getTextEditingContext();
+  if (!context) {
+    alert('Place the cursor on the element to align.');
+    return;
+  }
+
+  context.editable.style.textAlign = alignment;
+
+  markDirty();
+  autosave();
+}
+
+function clearTextFormatting() {
+  if (!state.editMode) return;
+
+  const context = getTextEditingContext();
+  if (!context) {
+    alert('Place the cursor or select editable text.');
+    return;
+  }
+
+  const { editable, range } = context;
+
+  // Store the <code> tags involved in the selection before editing it.
+  const codeElements = [...editable.querySelectorAll('code')]
+    .filter(code => {
+      try {
+        return range.intersectsNode(code);
+      } catch (_) {
+        return false;
+      }
+    });
+
+  editable.focus();
+  document.execCommand('removeFormat', false, null);
+
+  // removeFormat does not always remove <code> tags.
+  codeElements.forEach(code => {
+    if (!code.isConnected) return;
+
+    const parent = code.parentNode;
+    while (code.firstChild) {
+      parent.insertBefore(code.firstChild, code);
+    }
+    code.remove();
+  });
+
+  // It also removes custom alignment from the current item.
+  editable.style.removeProperty('text-align');
+
+  markDirty();
+  autosave();
+}
     /* === ACTIONS === */
     const actions = {
       'toggle-edit': () => setEditMode(!state.editMode),
       'toggle-mode': () => setMode(state.mode === 'doc' ? 'slides' : 'doc'),
       'cycle-theme': cycleTheme,
       'cycle-palette': cyclePalette,
+  bold: () => runTextCommand('bold'),
+  italic: () => runTextCommand('italic'),
+  'inline-code': toggleInlineCode,
+  'align-left': () => alignText('left'),
+  'align-center': () => alignText('center'),
+  'align-right': () => alignText('right'),
+  'clear-format': clearTextFormatting,
       'insert-link': insertLink,
       'remove-link': removeLink,
       save,
