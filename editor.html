@@ -260,6 +260,71 @@
       font-family: var(--font-body);
       font-size: 13px;
     }
+    
+/* Top bar: May wrap on narrow displays */
+#editor-toolbar {
+  flex-wrap: wrap;
+  max-width: calc(100vw - 24px);
+  justify-content: center;
+}
+
+/* Strumenti di formattazione */
+#text-toolbar {
+  position: fixed;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  z-index: 950;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: saturate(140%) blur(20px);
+  -webkit-backdrop-filter: saturate(140%) blur(20px);
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+
+body:not(.is-editing) #text-toolbar {
+  display: none;
+}
+
+/* Nella barra laterale il separatore è orizzontale */
+#text-toolbar .tb-sep {
+  width: 20px;
+  height: 1px;
+  margin: 4px 0;
+}
+
+@media (max-width: 600px) {
+  #editor-toolbar {
+    top: max(8px, env(safe-area-inset-top));
+    left: 8px;
+    right: 8px;
+    width: auto;
+    max-width: none;
+    transform: none;
+    border-radius: 16px;
+  }
+
+  #editor-toolbar .tb-status {
+    display: none;
+  }
+
+  #editor-toolbar .tb-btn {
+    padding: 6px;
+  }
+
+  #text-toolbar {
+    right: max(8px, env(safe-area-inset-right));
+  } }
     .tb-btn {
       display: inline-flex;
       align-items: center;
@@ -407,7 +472,7 @@
 
     .template-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
       gap: 12px;
     }
     .template-card {
@@ -717,41 +782,7 @@ console.log(message);<\/pre>
         <button class="tb-btn" data-action="toggle-mode" title="Toggle slides mode (S)">
           <span class="tb-icon">⇆<\/span><span class="tb-label">Doc<\/span>
         <\/button>
-        <div class="tb-sep"><\/div>
-	
-<button class="tb-btn tb-icon-btn" data-action="bold"
-        title="Bold (Ctrl/Cmd+B)" aria-label="Bold"><b>B<\/b><\/button>
-<button class="tb-btn tb-icon-btn" data-action="italic"
-        title="Italic (Ctrl/Cmd+I)" aria-label="Italic"><i>I<\/i><\/button>
-<button class="tb-btn tb-icon-btn" data-action="inline-code"
-        title="Inline Code" aria-label="Inline Code">&lt;/&gt;<\/button>
-
-<div class="tb-sep"><\/div>
-
-<button class="tb-btn tb-icon-btn" data-action="align-left" title="Align left" aria-label="Align left">
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-    <path d="M2 3h12v1.5H2V3zm0 4h8v1.5H2V7zm0 4h12v1.5H2V11zm0 4h8v1.5H2V15z"/>
-  <\/svg>
-<\/button>
-<button class="tb-btn tb-icon-btn" data-action="align-center" title="Align to center" aria-label="Align to center">
-	<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-		<path d="M2 3h12v1.5H2V3zm2 4h8v1.5H4V7zm-2 4h12v1.5H2V11zm2 4h8v1.5H4V15z"/>
-	<\/svg>
-<\/button>
-<button class="tb-btn tb-icon-btn" data-action="align-right" title="Align right" aria-label="Align right">
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-    <path d="M2 3h12v1.5H2V3zm4 4h8v1.5H6V7zm-4 4h12v1.5H2V11zm4 4h8v1.5H6V15z"/>
-  <\/svg>
-<\/button>
-<button class="tb-btn tb-icon-btn" data-action="clear-format"
-        title="Remove formatting" aria-label="Remove formatting">Tx<\/button>
-
-<div class="tb-sep"><\/div>
-
-<button class="tb-btn tb-icon-btn" data-action="insert-link" title="Insert link">🔗<\/button>
-<button class="tb-btn tb-icon-btn" data-action="remove-link" title="Remove link">⛓̸<\/button>
-
-<div class="tb-sep"><\/div>
+	<div class="tb-sep"><\/div>
         <button class="tb-btn tb-icon-btn" data-action="cycle-theme" title="Cycle theme">☀<\/button>
         <button class="tb-btn tb-icon-btn" data-action="cycle-palette" title="Cycle palette">◐<\/button>
         <div class="tb-sep"><\/div>
@@ -798,6 +829,66 @@ tb.addEventListener('mousedown', (e) => {
         modeBtn.querySelector('.tb-label').textContent = state.mode === 'slides' ? 'Slides' : 'Doc';
       }
     }
+
+function buildTextToolbar() {
+  const tb = document.createElement('div');
+  tb.id = 'text-toolbar';
+  tb.dataset.editorUi = 'text-toolbar';
+  tb.setAttribute('aria-label', 'Text formatting tools');
+
+  tb.innerHTML = `
+    <button class="tb-btn tb-icon-btn" data-action="bold"
+      title="Bold (Ctrl/Cmd+B)" aria-label="Bold"><b>B<\/b><\/button>
+    <button class="tb-btn tb-icon-btn" data-action="italic"
+      title="Italic (Ctrl/Cmd+I)" aria-label="Italic"><i>I<\/i><\/button>
+    <button class="tb-btn tb-icon-btn" data-action="inline-code"
+      title="Inline Code" aria-label="Inline Code">&lt;/&gt;<\/button>
+
+    <div class="tb-sep"><\/div>
+
+ <button class="tb-btn tb-icon-btn" data-action="align-left" title="Align Left" aria-label="Align Left">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+	<path d="M2 3h12v1.5H2V3zm0 4h8v1.5H2V7zm0 4h12v1.5H2V11zm0 4h8v1.5H2V15z"/>
+	<\/svg>
+  <\/button>
+    <button class="tb-btn tb-icon-btn" data-action="align-center" title="Align Center" aria-label="Align Center">
+    	<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+		<path d="M2 3h12v1.5H2V3zm2 4h8v1.5H4V7zm-2 4h12v1.5H2V11zm2 4h8v1.5H4V15z"/>
+	<\/svg>
+    <\/button>
+    <button class="tb-btn tb-icon-btn" data-action="align-right" title="Align Right" aria-label="Align Right">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+    <path d="M2 3h12v1.5H2V3zm4 4h8v1.5H6V7zm-4 4h12v1.5H2V11zm4 4h8v1.5H6V15z"/>
+	<\/svg>
+    <\/button>
+
+    <div class="tb-sep"><\/div>
+
+    <button class="tb-btn tb-icon-btn" data-action="clear-format"
+      title="Remove formatting" aria-label="Remove formatting">Tx<\/button>
+
+
+    <div class="tb-sep"><\/div>
+
+    <button class="tb-btn tb-icon-btn" data-action="insert-link"
+      title="Insert URL" aria-label="Insert URL">🔗<\/button>
+    <button class="tb-btn tb-icon-btn" data-action="remove-link"
+      title="Rremove URL" aria-label="Remove URL">⛓̸<\/button>
+  `;
+
+  // Maintains text selection when a button is pressed.
+  tb.addEventListener('mousedown', (e) => {
+    if (e.target.closest('[data-action]')) e.preventDefault();
+  });
+
+  tb.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    actions[btn.dataset.action]?.();
+  });
+
+  return tb;
+}
 
     /* === STATUS === */
     function setStatus(text, kind = 'saved') {
@@ -1562,6 +1653,7 @@ function clearTextFormatting() {
     /* === INIT === */
     function init() {
       document.body.appendChild(buildToolbar());
+	document.body.appendChild(buildTextToolbar());
       setEditMode(true);
       updateToolbarLabels();
       bindImageSwap();
