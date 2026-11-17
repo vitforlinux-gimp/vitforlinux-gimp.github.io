@@ -366,7 +366,12 @@ body:not(.is-editing) #text-toolbar {
     .tb-btn:hover { background: var(--surface-2); }
     .tb-btn.is-active { background: var(--accent); color: #fff; }
     .tb-btn.is-active:hover { background: var(--accent); opacity: 0.9; }
-    .tb-icon-btn { padding: 6px 4px; }
+    .tb-icon-btn.tb-icon-btn { padding: 6px 4px; }
+    .tb-icon-btn svg {
+	fill: currentColor;
+	display: block; /* Evita spazi indesiderati sotto l'icona */
+	}
+    
     .tb-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
     .tb-status {
       padding: 0 12px;
@@ -875,17 +880,17 @@ function buildTextToolbar() {
     <div class="tb-sep"><\/div>
 
  <button class="tb-btn tb-icon-btn" data-action="align-left" title="Align Left" aria-label="Align Left">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+      <svg width="16" height="16" viewBox="0 0 16 16">
 	<path d="M2 3h12v1.5H2V3zm0 4h8v1.5H2V7zm0 4h12v1.5H2V11zm0 4h8v1.5H2V15z"/>
 	<\/svg>
   <\/button>
     <button class="tb-btn tb-icon-btn" data-action="align-center" title="Align Center" aria-label="Align Center">
-    	<svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+    	<svg width="16" height="16" viewBox="0 0 16 16">
 		<path d="M2 3h12v1.5H2V3zm2 4h8v1.5H4V7zm-2 4h12v1.5H2V11zm2 4h8v1.5H4V15z"/>
 	<\/svg>
     <\/button>
     <button class="tb-btn tb-icon-btn" data-action="align-right" title="Align Right" aria-label="Align Right">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+      <svg width="16" height="16" viewBox="0 0 16 16">
     <path d="M2 3h12v1.5H2V3zm4 4h8v1.5H6V7zm-4 4h12v1.5H2V11zm4 4h8v1.5H6V15z"/>
 	<\/svg>
     <\/button>
@@ -898,10 +903,16 @@ function buildTextToolbar() {
 
     <div class="tb-sep"><\/div>
 
-    <button class="tb-btn tb-icon-btn" data-action="insert-link"
-      title="Insert URL" aria-label="Insert URL">🔗<\/button>
-    <button class="tb-btn tb-icon-btn" data-action="remove-link"
-      title="Rremove URL" aria-label="Remove URL">⛓̸<\/button>
+    <button class="tb-btn tb-icon-btn" data-action="insert-link" title="Insert URL" aria-label="Insert URL">
+	<svg width="16" height="16" viewBox="0 0 16 16">
+		<path d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"/>
+	<\/svg>
+      <\/button>
+    <button class="tb-btn tb-icon-btn" data-action="remove-link" title="Remove URL" aria-label="Remove URL">
+	<svg width="16" height="16" viewBox="0 0 16 16">
+		<path d="M10.085 3.085a2 2 0 112.83 2.83l-1.855 1.855 1.06 1.06 1.855-1.855a3.5 3.5 0 00-4.95-4.95L7.17 3.88l1.06 1.06 1.855-1.855zM3.085 10.085a2 2 0 002.83 2.83l1.855-1.855 1.06 1.06-1.855 1.855a3.5 3.5 0 01-4.95-4.95L3.88 7.17l1.06 1.06-1.855 1.855zM2.22 2.22a.75.75 0 011.06 0l10.5 10.5a.75.75 0 11-1.06 1.06l-10.5-10.5a.75.75 0 010-1.06z"/>
+	<\/svg>
+  <\/button>
   `;
 
   // Maintains text selection when a button is pressed.
