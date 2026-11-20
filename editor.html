@@ -367,7 +367,7 @@ body:not(.is-editing) #text-toolbar {
     .tb-btn.is-active { background: var(--accent); color: #fff; }
     .tb-btn.is-active:hover { background: var(--accent); opacity: 0.9; }
     .tb-icon-btn.tb-icon-btn { padding: 6px 4px; }
-    .tb-icon-btn svg {
+    .tb-icon-btn svg , .tb-btn svg{
 	fill: currentColor;
 	display: block; /* Evita spazi indesiderati sotto l'icona */
 	}
@@ -659,6 +659,39 @@ body.mode-slides .block[data-block="image-text"] {
       color: var(--fg);
     }
     #slide-nav button:hover { background: var(--surface-2); }
+    
+    /* === SLIDE BACKGROUNDS === */
+.block {
+  background-color: var(--slide-bg-color, transparent);
+  background-image: var(--slide-bg-image, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+body.mode-slides .block {
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+}
+
+/* Extend slide backgrounds to the full viewport, beyond the content column. */
+body.mode-slides .block::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background-color: var(--slide-bg-color, transparent);
+  background-image: var(--slide-bg-image, none);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
 
     /* === ANIMATIONS === */
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -819,11 +852,42 @@ console.log(message);<\/pre>
         <button class="tb-btn tb-icon-btn" data-action="cycle-theme" title="Cycle theme">☀<\/button>
         <button class="tb-btn tb-icon-btn" data-action="cycle-palette" title="Cycle palette">◐<\/button>
         <div class="tb-sep"><\/div>
+	<button class="tb-btn" data-action="slide-bg-color" title="Background color for current slide">
+	<svg width="16" height="16" viewBox="0 0 16 16">
+	<path d="M2 2.5h12v11H2v-11zm1.5 1.5v8h9V4h-9z"/>
+	<path d="M8 5.2c0 0-2.3 2.5-2.3 3.8a2.3 2.3 0 0 0 4.6 0c0-1.3-2.3-3.8-2.3-3.8z"/>
+	<\/svg>
+	<\/button>
+	<button class="tb-btn" data-action="slide-bg-image" title="Background image for current slide">
+	<svg width="16" height="16" viewBox="0 0 16 16">
+	<path d="M2 2.5h12v11H2v-11zm1.5 1.5v8h9V4h-9z"/>
+	<circle cx="5.8" cy="6.2" r="1.1"/>
+	<path d="M4.2 11l2.6-2.8 1.8 1.9 1.3-1.4L11.8 11H4.2z"/>
+	<\/svg>
+	<\/button>
+	<button class="tb-btn" data-action="all-bg-image" title="Background image for all slides">
+	<svg width="16" height="16" viewBox="0 0 16 16">
+	<path d="M1.5 2h10.5v1.5H3v7.5H1.5V2z"/>
+	<path d="M4 4.5h10.5v9.5H4v-9.5zm1.5 1.5v6.5H13V6H5.5z"/>
+	<circle cx="7.4" cy="7.9" r="0.95"/>
+	<path d="M6.2 11.6l2-2.2 1.4 1.5 1-1.1 1.7 1.8H6.2z"/>
+	<\/svg>
+	<\/button>
+	<button class="tb-btn" data-action="remove-slide-bg-image" title="Remove background image from current slide">
+	<svg width="16" height="16" viewBox="0 0 16 16">
+	<path d="M2 2.5h12v11H2v-11zm1.5 1.5v8h9V4h-9z"/>
+	<path d="M4.2 10.7L10.7 4.2l1.1 1.1-6.5 6.5-1.1-1.1z"/>
+	<\/svg>
+	<\/button>
+	<div class="tb-sep"><\/div>
         <button class="tb-btn" data-action="save" title="Save (Cmd+S)">
           <span class="tb-icon">↓<\/span><span class="tb-label">Save<\/span>
         <\/button>
         <button class="tb-btn" data-action="export-pdf" title="Print to PDF (Cmd+P)">
-          <span class="tb-icon">⎙<\/span><span class="tb-label">PDF<\/span>
+         <svg width="16" height="16" viewBox="0 0 16 16">
+	<path d="M3 1.5h6.6L13 4.9v9.6H3v-13zm1.5 1.5v10h7V5.5H8.9V3H4.5z"/>
+	<path d="M5.3 7.5h1.6c.7 0 1.2.4 1.2 1.1s-.5 1.1-1.2 1.1h-.7V11h-.9V7.5zm.9.8v.7h.6c.2 0 .4-.1.4-.35s-.2-.35-.4-.35h-.6zm2.4-.8H10c1 0 1.6.6 1.6 1.75S11 11 10 11H8.6V7.5zm.9.8v1.9h.4c.5 0 .8-.3.8-.95s-.3-.95-.8-.95h-.4z"/>
+	<\/svg>
         <\/button>
         <div class="tb-sep"><\/div>
         <span class="tb-status" id="save-status">Ready<\/span>
@@ -1193,6 +1257,76 @@ const blockOps = {
       const total = getSlides().length;
       ind.textContent = `${state.currentSlide + 1} / ${total}`;
     }
+    
+    /* === SLIDE BACKGROUNDS === */
+function getBackgroundTarget() {
+  const focusedBlock = document.activeElement?.closest?.('.block');
+  if (focusedBlock && $('#content').contains(focusedBlock)) return focusedBlock;
+
+  const blocks = getSlides();
+  return blocks[state.currentSlide] || blocks[0] || null;
+}
+
+function chooseSlideBackgroundColor() {
+  const block = getBackgroundTarget();
+  if (!block) return;
+
+  const input = document.createElement('input');
+  input.type = 'color';
+  input.value = '#ffffff';
+
+  input.addEventListener('input', () => {
+    block.style.setProperty('--slide-bg-color', input.value);
+    markDirty();
+    autosave();
+  });
+
+  input.click();
+}
+
+function chooseBackgroundImage(allSlides = false) {
+  const blocks = allSlides ? getSlides() : [getBackgroundTarget()].filter(Boolean);
+  if (!blocks.length) return;
+
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+
+  input.addEventListener('change', () => {
+    const file = input.files?.[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Choose an image smaller than 5 MB.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      // FileReader returns a data URL, so the background is saved inside the HTML file.
+      const background = `url("${reader.result}")`;
+
+      blocks.forEach(block => {
+        block.style.setProperty('--slide-bg-image', background);
+      });
+
+      markDirty();
+      autosave();
+    };
+    reader.readAsDataURL(file);
+  });
+
+  input.click();
+}
+function removeSlideBackgroundImage() {
+  const block = getBackgroundTarget();
+  if (!block) return;
+
+  block.style.removeProperty('--slide-bg-image');
+   block.style.removeProperty('--slide-bg-color');
+  markDirty();
+  autosave();
+}
 
     /* === THEME === */
     const THEMES = ['light', 'dark', 'sepia'];
@@ -1626,6 +1760,10 @@ function clearTextFormatting() {
   'clear-format': clearTextFormatting,
       'insert-link': insertLink,
       'remove-link': removeLink,
+      'slide-bg-color': chooseSlideBackgroundColor,
+	'slide-bg-image': () => chooseBackgroundImage(false),
+	'all-bg-image': () => chooseBackgroundImage(true),
+	'remove-slide-bg-image': removeSlideBackgroundImage,
       save,
       'export-pdf': () => window.print(),
       help: openHelp,
@@ -1668,6 +1806,15 @@ function clearTextFormatting() {
         markDirty();
         autosave();
       });
+      content.addEventListener('click', (e) => {
+  if (e.target.closest('[data-editor-ui]')) return;
+
+  const block = e.target.closest('.block');
+  if (!block) return;
+
+  state.currentSlide = getSlides().indexOf(block);
+  if (state.mode === 'slides') updateSlideIndicator();
+});
     }
 
     /* === SLIDE SCROLL TRACKING === */
