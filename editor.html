@@ -623,7 +623,7 @@ body.mode-slides .block[data-block="image-text"] {
   align-items: center;
 }
 
-    body.mode-slides .block-controls { right: 24px; top: 60px; }
+    body.mode-slides .block-controls { right: 24px; top: 90px; }
     #slide-indicator {
       position: fixed;
       bottom: 60px;
@@ -659,6 +659,32 @@ body.mode-slides .block[data-block="image-text"] {
       color: var(--fg);
     }
     #slide-nav button:hover { background: var(--surface-2); }
+    
+/* Numero e navigazione raccolti sul lato destro */
+#slide-nav {
+  left: auto;
+  right: 24px;
+  bottom: 60px;
+}
+
+#slide-indicator {
+  right: 108px; /* spazio per i due pulsanti e il distacco */
+  bottom: 60px;
+}
+
+/* Su telefono, lascia spazio alla barra degli strumenti in basso */
+@media (max-width: 720px) {
+  #slide-nav {
+    right: max(8px, env(safe-area-inset-right));
+    bottom: calc(max(8px, env(safe-area-inset-bottom)) + 76px);
+  }
+
+  #slide-indicator {
+    right: calc(max(8px, env(safe-area-inset-right)) + 84px);
+    bottom: calc(max(8px, env(safe-area-inset-bottom)) + 76px);
+  }
+}
+
     
     /* === SLIDE BACKGROUNDS === */
 .block {
@@ -721,6 +747,8 @@ body.mode-slides .block::before {
       [contenteditable] { background: transparent !important; box-shadow: none !important; }
       a { color: #000; text-decoration: underline; }
     }
+
+
   </style>
 </head>
 <body class="mode-doc">
@@ -1022,6 +1050,7 @@ function buildTextToolbar() {
       const wrap = el(`<div class="block-controls" data-editor-ui="controls">
         <button class="bc-btn" data-bc="up" title="Move up">↑<\/button>
         <button class="bc-btn" data-bc="down" title="Move down">↓<\/button>
+	<button class="bc-btn" data-bc="add" title="Add block" aria-label="Add block">+</button>
         <button class="bc-btn" data-bc="duplicate" title="Duplicate">⎘<\/button>
         <button class="bc-btn is-danger" data-bc="delete" title="Delete">×<\/button>
       <\/div>`);
@@ -1059,6 +1088,16 @@ const blockOps = {
       afterMutation();
     }
   },
+add(block) {
+  const blocks = [...block.parentElement.children]
+    .filter(el => el.classList.contains('block'));
+
+  const index = blocks.indexOf(block);
+  const nextBlock = blocks[index + 1] || null;
+
+  // Inserisce il nuovo blocco dopo quello corrente.
+  openTemplatePicker(nextBlock);
+},
 
   down(block) {
     const parent = block.parentElement;
@@ -1129,7 +1168,7 @@ const blockOps = {
       const backdrop = el(`<div class="modal-backdrop" data-editor-ui="modal">
         <div class="modal" style="position:relative">
           <button class="modal-close" data-close>×<\/button>
-          <h3>Insert block<\/h3>
+          <h3>${state.mode === 'slides' ? 'Add slide' : 'Insert block'}<\/h3>
           <div class="template-grid"><\/div>
         <\/div>
       <\/div>`);
