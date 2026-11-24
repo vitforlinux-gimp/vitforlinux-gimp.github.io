@@ -366,6 +366,15 @@ body:not(.is-editing) #text-toolbar {
     .tb-btn:hover { background: var(--surface-2); }
     .tb-btn.is-active { background: var(--accent); color: #fff; }
     .tb-btn.is-active:hover { background: var(--accent); opacity: 0.9; }
+    
+    [data-theme="dark"] .tb-btn.is-active {
+  color: #15151a;
+}
+
+[data-theme="dark"] .tb-btn.is-active:hover {
+  color: #15151a;
+}
+
     .tb-icon-btn.tb-icon-btn { padding: 6px 4px; }
     .tb-icon-btn svg , .tb-btn svg{
 	fill: currentColor;
@@ -970,6 +979,15 @@ function buildTextToolbar() {
       title="Inline Code" aria-label="Inline Code">&lt;/&gt;<\/button>
 
     <div class="tb-sep"><\/div>
+    <button class="tb-btn tb-icon-btn" data-action="text-color" title="Text color" aria-label="Colore del testo">
+   <span style="font-weight:700; border-bottom:3px solid currentColor">A<\/span>
+   <\/button>
+
+<button class="tb-btn tb-icon-btn" data-action="text-highlight" title="Text background" aria-label="Sfondo del testo">
+  <span style="padding:0 3px; background:#ffeb3b">A<\/span>
+<\/button>
+
+<div class="tb-sep"><\/div>
 
  <button class="tb-btn tb-icon-btn" data-action="align-left" title="Align Left" aria-label="Align Left">
       <svg width="16" height="16" viewBox="0 0 16 16">
@@ -1050,7 +1068,7 @@ function buildTextToolbar() {
       const wrap = el(`<div class="block-controls" data-editor-ui="controls">
         <button class="bc-btn" data-bc="up" title="Move up">↑<\/button>
         <button class="bc-btn" data-bc="down" title="Move down">↓<\/button>
-	<button class="bc-btn" data-bc="add" title="Add block" aria-label="Add block">+</button>
+	<button class="bc-btn" data-bc="add" title="Add block" aria-label="Add block">+<\/button>
         <button class="bc-btn" data-bc="duplicate" title="Duplicate">⎘<\/button>
         <button class="bc-btn is-danger" data-bc="delete" title="Delete">×<\/button>
       <\/div>`);
@@ -1783,6 +1801,100 @@ function clearTextFormatting() {
 
   markDirty();
   autosave();
+  
+  // Also removes colors applied with the color and background buttons.
+const currentSelection = window.getSelection();
+const currentRange = currentSelection?.rangeCount
+  ? currentSelection.getRangeAt(0)
+  : range;
+
+removeInlineColors(editable, currentRange);
+  
+}
+
+function chooseTextColor(command) {
+  if (!state.editMode) return;
+
+  const context = getTextEditingContext();
+  if (!context) {
+    alert('Position the cursor or select the text to edit.');
+    return;
+  }
+
+  if (context.range.collapsed) {
+    alert('Select the text you want to edit first.');
+    return;
+  }
+
+  // Conserva selezione ed elemento modificabile mentre si apre il selettore colore.
+  const savedRange = context.range.cloneRange();
+  const editable = context.editable;
+
+  const input = document.createElement('input');
+  input.type = 'color';
+  input.value = command === 'foreColor' ? '#000000' : '#ffeb3b';
+
+  input.addEventListener('change', () => {
+    if (!editable.isConnected) return;
+
+    editable.focus();
+
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(savedRange);
+
+    if (command === 'hiliteColor') {
+      // hiliteColor it is supported by most browsers;
+      // backColor is used as an alternative.
+      const applied = document.execCommand('hiliteColor', false, input.value);
+      if (!applied) {
+        document.execCommand('backColor', false, input.value);
+      }
+    } else {
+      document.execCommand(command, false, input.value);
+    }
+
+    markDirty();
+    autosave();
+  });
+
+  input.click();
+}
+
+function removeInlineColors(editable, range) {
+  const selectionRange = range || window.getSelection()?.getRangeAt(0);
+
+  if (!selectionRange) return;
+
+  const styledElements = [...editable.querySelectorAll('[style]')];
+
+  styledElements.forEach(element => {
+    let intersects = false;
+
+    try {
+      intersects = selectionRange.intersectsNode(element);
+    } catch (_) {
+      // Ignora nodi non più collegati al documento.
+    }
+
+    if (!intersects) return;
+
+    element.style.removeProperty('color');
+    element.style.removeProperty('background-color');
+
+    // Elimina lo style vuoto; se lo span non ha altri attributi,
+    // lo rimuove lasciando intatto il testo.
+    if (!element.getAttribute('style')?.trim()) {
+      element.removeAttribute('style');
+    }
+
+    if (
+      element.tagName === 'SPAN' &&
+      element.attributes.length === 0
+    ) {
+      element.replaceWith(...element.childNodes);
+    }
+  });
 }
     /* === ACTIONS === */
     const actions = {
@@ -1799,6 +1911,8 @@ function clearTextFormatting() {
   'clear-format': clearTextFormatting,
       'insert-link': insertLink,
       'remove-link': removeLink,
+	'text-color': () => chooseTextColor('foreColor'),
+	'text-highlight': () => chooseTextColor('hiliteColor'),
       'slide-bg-color': chooseSlideBackgroundColor,
 	'slide-bg-image': () => chooseBackgroundImage(false),
 	'all-bg-image': () => chooseBackgroundImage(true),
